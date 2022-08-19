@@ -1,23 +1,22 @@
 .footer{
-  max-width: 90vw;
-  margin: 0 auto;
-  height: 13vh;
+
+  margin: 0 1em;
   /* background-color: rgb(255, 167, 95); */
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   font-weight: 600;
   border: #000 solid 2px;
-  border-radius: 4em;
-  
+  border-radius: 3em;
+  padding-left: 1em;
 }
 
 .footer_list{
   list-style: none;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;  
+  
 }
 
 .footer_list li a{
@@ -34,8 +33,9 @@
 
 .footer_rss{
   background-image: url('./rs_school_js.svg?inline');
-  width: 8em;
-  height: 3em;
+  width: 6em;
+  height: 2em;
+  margin: 1em;
   background-repeat: no-repeat;
   background-size: contain;
   transition: 0.4s;
