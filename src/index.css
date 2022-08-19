@@ -1,6 +1,9 @@
 :root {
   box-sizing: border-box;
   font-size: 1em;
+
+	--black: #030303ff;
+  --white: #fdfdfdff;
 }
 
 *,
