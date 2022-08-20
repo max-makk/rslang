@@ -1,13 +1,14 @@
 .footer{
 
-  margin: 0 1em;
+  margin: 1em;
   /* background-color: rgb(255, 167, 95); */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  border: #000 solid 2px;
+  font-size: 0.8rem;
+  border: var(--black) solid 2px;
   border-radius: 3em;
   padding-left: 1em;
 }
@@ -21,8 +22,9 @@
 
 .footer_list li a{
   text-decoration: none;
-  color: #000;
+  color: var(--black);
   font-weight: 600;
+  font-size: 0.8rem;
   padding-left: 1em;
   padding-right: 1em;
 }
@@ -33,7 +35,7 @@
 
 .footer_rss{
   background-image: url('./rs_school_js.svg?inline');
-  width: 6em;
+  width: 5.8em;
   height: 2em;
   margin: 1em;
   background-repeat: no-repeat;
@@ -44,4 +46,22 @@
 .footer_rss:focus{
     filter: brightness(0) saturate(100%) invert(55%) sepia(62%) saturate(485%) hue-rotate(131deg) brightness(83%) contrast(94%); 
     transition: 0.4s;
+}
+
+@media (max-width: 480px){
+  .footer{
+    font-weight: 500;
+    font-size: 0.6rem;
+  }
+  .footer_list li a{
+    font-weight: 500;
+    font-size: 0.6rem;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+  }
+  .footer_rss{
+    width: 4.3em;
+    height: 1.6em;
+  }
+
 }
