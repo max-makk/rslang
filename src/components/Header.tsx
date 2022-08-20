@@ -5,19 +5,20 @@ export const Header = () => {
     <a href={'/'} className={style.headerLink + ' ' + style.headerLogo}>RSlang</a>
     <nav className={style.headerNav}>
       <ul className={style.headerList}>
-        <li>
-          <a href={'/'} className={style.headerLink}>Главная</a>
-        </li>
-        <li>
-          <a href={'/textbook'} className={style.headerLink}>Учебник</a>
-        </li>
-        <li>
-          <a href={'/games'} className={style.headerLink}>Игры</a>
-        </li>
-        <li>
-          <a href={'/statistics'} className={style.headerLink}>Статистика</a>
-        </li>
+        <CustomLink href={'/'} className={style.headerLink}>Главная</CustomLink>
+        <CustomLink href={'/textbook'} className={style.headerLink}>Учебник</CustomLink>
+        <CustomLink href={'/games'} className={style.headerLink}>Игры</CustomLink>
+        <CustomLink href={'/statistics'} className={style.headerLink}>Статистика</CustomLink>
       </ul>
     </nav>
   </header>
+}
+
+const CustomLink = ({href, children, ...props}: { href: string, children: string, className: string }) => {
+  const path = window.location.pathname;
+  return (
+      <li className={path === href ? style.active : ''}>
+        <a href={href} {...props}>{children}</a>
+      </li>
+  )
 }
