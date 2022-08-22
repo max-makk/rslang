@@ -47,7 +47,7 @@
   gap: 1em;
 }
 
-li.active .headerLink::before {
+.headerLink.active::before {
   bottom: 0;
   height: 100%;
 }
