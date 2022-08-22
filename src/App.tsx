@@ -4,7 +4,7 @@ import { Footer } from './components/footer/Footer';
 import './App.css';
 import {Header} from './components/Header';
 
-function App() {
+const App = () => {
   return <>
     <Header/>
     <Home/>
