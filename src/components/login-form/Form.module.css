@@ -5,8 +5,8 @@
 } */
 
 .login_form{
-  width: 20em;
-  margin: 1em;
+  width: 24em;
+  margin: 1em 0;
   padding: 0.5em;
   background-color: rgb(255, 167, 95);
   display: flex;
@@ -18,6 +18,18 @@
   border: var(--black) solid 2px;
   border-radius: 3em;
 
+}
+
+.login_form_header{
+  display: flex;
+  flex-direction: row;
+  line-height: 2em;
+  text-align: center;
+
+}
+
+.login_form_header div{
+  justify-content: space-between;
 }
 
 .login_form_input{

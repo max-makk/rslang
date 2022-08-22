@@ -3,9 +3,12 @@ import style from './Form.module.css';
 export const Form = () => {
   return (
     <form className={style.login_form}>
-      {/*       <p className={style.login_form_user}>Пользователь:</p>
-       <p>
-        <input className={style.login_form_input} type="username" id="username" name="username" placeholder='Имя' />
+      <div className={style.login_form_header}>
+      <p>Пользователь</p>
+      <p>Вход</p>
+      <p>Регистрация</p>
+      </div>
+      {/* <p> <input className={style.login_form_input} type="username" id="username" name="username" placeholder='Имя' />
       </p> */}
       <p>
         <input className={style.login_form_input} type="email" id="email" name="email" placeholder='E-mail' />
