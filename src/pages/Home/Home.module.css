@@ -1,52 +1,6 @@
-.team_wrapper{
- display: flex;
- flex-direction: column;
- align-items: center;
- margin-top: 5em;
-}
-
-.team_string{
+.home_wrapper{
   display: flex;
   flex-direction: row;
-  margin-bottom: 1em;
-  align-items: center;
-}
-
-.team_ava {
-  width: 5em;
-  height: 5em;
-  border: var(--black) solid 2px;
-  border-radius: 3em;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.team_ava a{
-  width: 5em;
-  height: 5em;
-  color: transparent;
-  text-decoration: none;
-}
-
-.team_ava1{
-  background-image: url('./1.jpg');
-}
-
-.team_ava2{
-  background-image: url('./2.jpg');
-}
-
-.team_ava3{
-  background-image: url('./3.jpg');
-}
-
-.team_text{
-  width: 30em;
-
-  border: var(--black) solid 2px;
-  border-radius: 5em;
-  margin-left: 1em;
-  padding: 0.8em 1.5em;
-  font-size: 0.8rem;
-  line-height: 1rem;
+  justify-content: space-evenly;
+  margin: 2em 4em 0 1em;
 }
