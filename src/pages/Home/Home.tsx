@@ -1,4 +1,4 @@
-import { Form } from '../../components/Login-form/Form';
+import { Form } from '../../components/Form/Form';
 import { Team } from '../../components/Team/Team';
 import { Description } from '../../components/Description/Description';
 import style from './Home.module.css';

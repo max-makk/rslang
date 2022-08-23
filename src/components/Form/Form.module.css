@@ -24,7 +24,15 @@
   flex-direction: row;
   line-height: 2em;
   text-align: center;
+}
 
+.login_form_header p{
+  padding: 0 0.5em;
+}
+.login_form_header p:hover,
+.login_form_header p:focus{
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .login_form_header div{
@@ -46,18 +54,23 @@
 }
 
 .login_form_btn{
-border: transparent;
-background-color: transparent;
-margin-top: 0.5em;
-align-items: center;
-}
-
-/* .login_form_btn_show{
   margin-top: 2em;
   align-items: center;
   margin-bottom: 1.5em;
   padding-left: 0;
   padding: 0.6em;
+  font-weight: 500;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+  cursor: pointer;
+}
+.login_form_btn:hover{
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25);
+}
+
+.login_form_btn:active{
+  box-shadow: inset 0px 4px 7px 2px rgba(0, 0, 0, 0.25);
+}
+.active{
   font-weight: 600;
 }
- */
+
