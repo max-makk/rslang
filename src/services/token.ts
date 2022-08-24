@@ -16,7 +16,7 @@ const setUser = (user: User) => {
   refreshToken = user.refreshToken
 }
 
-const getUser = () => {
+const getLoggedUser = () => {
   const loggedUserJSON = window.localStorage.getItem(STORAGE_KEY)
   if (loggedUserJSON) {
     const user = JSON.parse(loggedUserJSON)
@@ -37,7 +37,7 @@ const getRefreshToken = () => refreshToken
 
 export default {
   setUser,
-  getUser,
+  getLoggedUser,
   clearUser,
   getToken,
   getRefreshToken
