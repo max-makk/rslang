@@ -7,19 +7,14 @@ import { useState } from 'react';
 
 const schema = yup
   .object({
-    firstName: yup
-      .string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
-    lastName: yup
+    username: yup
       .string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
     password: yup
       .string()
-      .min(2, 'Too Short!')
+      .min(6, 'Too Short! Use 6 symbols and more.')
       .max(50, 'Too Long!')
       .required('Required'),
     email: yup.string().email('Invalid email').required('Required'),
@@ -27,8 +22,7 @@ const schema = yup
   .required();
 
 type FormData = {
-  firstName: string;
-  lastName: string;
+  username: string;
   password: string;
   email: string;
 };
@@ -45,27 +39,25 @@ const Registration = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input placeholder="Имя" {...register('firstName')} className={style.login_form_input} type="username" id="username" name="username"/>
-      <p>{errors.firstName?.message}</p>
+      <input placeholder="Имя" {...register('username')} className={style.login_form_input} type="username" id="username" name="username"/>
+      <p className={style.red}>{errors.username?.message}</p>
 
       <input placeholder="E-mail" {...register('email')} 
               className={style.login_form_input}
               type="email"
               id="email"
               name="email" />
-      <p>{errors.email?.message}</p>
+      <p className={style.red}>{errors.email?.message}</p>
 
       <input placeholder="Пароль" type="password" {...register('password')} className={style.login_form_input}
               id="password"
               name="password" />
-      <p>{errors.password?.message}</p>
+      <p className={style.red} >{errors.password?.message}</p>
 
       <input type="submit" className={
               style.login_form_input +
               ' ' +
-              style.login_form_btn +
-              ' ' +
-              style.login_form_btn_show
+              style.login_form_btn
             }
             value={'Зарегистрироваться'} />
     </form>
@@ -99,10 +91,7 @@ const Login = () => {
       <input type="submit" className={
               style.login_form_input +
               ' ' +
-              style.login_form_btn +
-              ' ' +
-              style.login_form_btn_show
-            }
+              style.login_form_btn}
             value={'Войти'}/>
     </form>
   );
