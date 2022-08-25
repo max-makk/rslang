@@ -59,7 +59,7 @@ export const getUserDetails = createAsyncThunk(
 
 export const getWords = createAsyncThunk(
   'words/get-words',
- async ({page, group}: {page: string ,group: string}, { rejectWithValue }) => {
+ async ({group, page}: {group: string ,page: string}, { rejectWithValue }) => {
   try {
     const words = await wordsService.getWords(page, group)
     return words

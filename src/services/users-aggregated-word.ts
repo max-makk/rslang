@@ -11,17 +11,28 @@ const config = () => {
   }
 }
 
-const getAggregatedWords = async (id: string) => {
-  const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords`, config())
+const getHardWords = async (id: string) => {
+  const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=3600&filter={"userWord.difficulty":"hard"}`, config())
   return request.data
 }
 
-const getAggregatedWord = async (id: string, wordId: string) => { // !!!
-  const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords/${wordId}`, config())
+const getEasyWords = async (id: string) => {
+  const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=3600&filter={"userWord.difficulty":"easy"}`, config())
   return request.data
 }
+
+const getLearndedWords = async (id: string) => {
+  const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=3600&filter={"userWord.optional.learned":true}`, config())
+  return request.data
+}
+
+// const getAggregatedWord = async (id: string, wordId: string) => { // !!!
+//   const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords/${wordId}`, config())
+//   return request.data
+// }
 
 export default {
-  getAggregatedWords,
-  getAggregatedWord
+  getHardWords,
+  getEasyWords,
+  getLearndedWords
 }
