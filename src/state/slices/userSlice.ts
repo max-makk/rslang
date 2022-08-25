@@ -10,9 +10,17 @@ import {
 
 const userToken = tokenService.getToken()
 
+interface UserInfoState {
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string
+}
+
 interface UserState {
   loading: boolean
-  userInfo: any
+  userInfo: UserInfoState | null
   userToken: string | null
   error: any,
   success: boolean,
@@ -34,7 +42,7 @@ const userSlice = createSlice({
       // localStorage.removeItem('userToken') // delete token from storage
       tokenService.clearUser()
       state.loading = false
-      state.userInfo = null
+      state.userInfo = 
       state.userToken = null
       state.error = null
     },
