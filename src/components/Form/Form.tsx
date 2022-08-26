@@ -9,7 +9,20 @@ import { registerUser, userLogin } from '../../state/thunks';
 
 const schema = yup
   .object({
-    username: yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+    username: yup.string().min(2, 'Too Short!').max(50, 'Too Long!')
+    .required('Required'),
+    password: yup
+      .string()
+      .min(6, 'Too Short! Use 6 symbols and more.')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    email: yup.string().email('Invalid email').required('Required'),
+  })
+  .required();
+
+  const schemaIn = yup
+  .object({
+    //username: yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
     //.required('Required')
     password: yup
       .string()
@@ -82,7 +95,7 @@ const Login = ({ onSubmit }: { onSubmit: (data: FormData) => void }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schemaIn),
   });
 
   return (
