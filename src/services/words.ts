@@ -12,9 +12,4 @@ const getWord = (id: string) => {
   return request.then((response) => response.data)
 }
 
-const getAllWords = () => {
-  const request = axios.get(`${baseUrl}/words`)
-  return request.then((response) => response.data)
-}
-
-export default { getAllWords, getWord, getWords }
+export default { getWord, getWords }

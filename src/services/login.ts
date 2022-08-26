@@ -7,11 +7,11 @@ interface NewUser  {
   password :string
 }
 
-const signIn = async (user: NewUser) => {
+const login = async (user: NewUser) => {
   const request = await axios.post(`${baseUrl}/signin`, user)
   return request.data
 }
 
 export default {
-  signIn
+  login
 }

@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import userReducer from './slices/userSlice'
-import wordReducer from './slices/wordsSlice'
-import textbookReducer from './slices/textbookSlice'
+import userReducer from './reducers/user'
+import textbookReducer from './reducers/textbook'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    words: wordReducer,
     textbook: textbookReducer
   }
 })
