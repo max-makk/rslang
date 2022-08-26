@@ -23,7 +23,6 @@ const getUser = () => {
     token = user.token
     return user
   }
-
   return null
 }
 
@@ -32,6 +31,15 @@ const clearUser = () => {
   token = null
 }
 
+const getUserId = () => {
+  const loggedUserJSON = window.localStorage.getItem(STORAGE_KEY)
+  if (loggedUserJSON) {
+    const user = JSON.parse(loggedUserJSON)
+    const id  = user.userId
+    return id
+  }
+  return null
+}
 const getToken = () => token
 const getRefreshToken = () => refreshToken
 
@@ -40,5 +48,6 @@ export default {
   getUser,
   clearUser,
   getToken,
-  getRefreshToken
+  getRefreshToken,
+  getUserId
 }
