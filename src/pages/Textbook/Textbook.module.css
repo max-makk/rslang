@@ -1,0 +1,48 @@
+.textbook {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1em;
+}
+
+.textbook_header {
+  padding-left: 0.6em;
+}
+
+.textbook_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.textbook_button {
+  background: var(--white);
+  cursor: pointer;
+  border: 2px solid var(--black);
+  border-radius: 2em;
+  padding: 0.5em;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.textbook_choose {
+  position: relative;
+}
+
+.textbook_page {
+  border-radius: 0;
+}
+
+.textbook_arrow_left {
+  border-right: none;
+  border-radius: 2em 0 0 2em;
+}
+
+.textbook_arrow_right {
+  border-left: none;
+  border-radius: 0 2em 2em 0;
+}
