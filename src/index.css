@@ -3,6 +3,13 @@
 
 	--black: #030303ff;
   --white: #fdfdfdff;
+
+	--level1: #b2bbf0;
+	--level2: #aeffda;
+	--level3: #eb8755;
+	--level4: #eeac5d;
+	--level5: #f7f382;
+	--level6: #e693cb;
 }
 
 @media (min-width: 500px) {
