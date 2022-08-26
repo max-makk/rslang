@@ -1,0 +1,79 @@
+/* .login_form_user, 
+.login_form_btn {
+
+  align-items: center;
+} */
+
+.login_form{
+  width: 30em;
+  padding: 0.5em;
+  background-color: rgba(255, 167, 95, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border: var(--black) solid 2px;
+  border-radius: 3em;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+}
+
+.login_form_header{
+  display: flex;
+  flex-direction: row;
+  line-height: 2em;
+  text-align: center;
+}
+
+.login_form_header p{
+  padding: 0 0.5em;
+}
+.login_form_header p:hover,
+.login_form_header p:focus{
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login_form_header div{
+  justify-content: space-between;
+}
+
+.login_form_input{
+  display: flex;
+  flex-direction: column;
+  width: 14em;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border: var(--black) solid 2px;
+  border-radius: 3em;
+  padding: 0.2em;
+  padding-left: 0.6em;
+  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+}
+
+.login_form_btn{
+  margin-top: 2em;
+  align-items: center;
+  margin-bottom: 1.5em;
+  padding-left: 0;
+  padding: 0.6em;
+  font-weight: 500;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+  cursor: pointer;
+}
+.login_form_btn:hover{
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25);
+}
+
+.login_form_btn:active{
+  box-shadow: inset 0px 4px 7px 2px rgba(0, 0, 0, 0.25);
+}
+.active{
+  font-weight: 600;
+}
+
+.red{
+  color: red;
+}

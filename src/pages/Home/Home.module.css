@@ -1,4 +1,6 @@
-.div {
-  color: red;
-  min-height: 89vh;
+.home_wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 2em 4em 0 1em;
 }
