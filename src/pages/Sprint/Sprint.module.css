@@ -1,0 +1,45 @@
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-top: 20%;
+}
+
+.btn {
+  font-family: 'Inter';
+  border: 4px solid var(--black);
+  border-radius: 1em;
+  padding: 1em 2em;
+  cursor: pointer;
+  box-shadow: 0 0 8px 4px gainsboro;
+}
+
+.btn:hover {
+  transform: scale(1.2);
+}
+
+.lvl1 {
+  background-color: var(--level1);
+}
+
+.lvl2 {
+  background-color: var(--level2);
+}
+
+.lvl3 {
+  background-color: var(--level3);
+}
+
+.lvl4 {
+  background-color: var(--level4);
+}
+
+.lvl5 {
+  background-color: var(--level5);
+}
+
+.lvl6 {
+  background-color: var(--level6);
+}
