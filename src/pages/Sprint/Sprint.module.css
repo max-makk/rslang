@@ -4,7 +4,10 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
-  margin-top: 20%;
+  margin-top: 25%;
+  background-color: aliceblue;
+  border-radius: 1em;
+  padding: 2em;
 }
 
 .btn {
@@ -14,6 +17,12 @@
   padding: 1em 2em;
   cursor: pointer;
   box-shadow: 0 0 8px 4px gainsboro;
+}
+
+.btn:active {
+  background-color: var(--black);
+  color: var(--white);
+  border: 4px solid var(--white);
 }
 
 .btn:hover {
@@ -42,4 +51,15 @@
 
 .lvl6 {
   background-color: var(--level6);
+}
+
+.modal {
+  background-color: beige;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
 }
