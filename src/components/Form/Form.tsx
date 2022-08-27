@@ -34,7 +34,7 @@ export const Form = () => {
           <Login />
         </div>
         <div style={showWhenVisible}>
-          <Registration />
+          <Registration displayLogin={setLoginVisible} />
         </div>
       </div>
     )
@@ -98,7 +98,11 @@ const Login = () => {
   )
 }
 
-const Registration = () => {
+type showLogin = {
+  displayLogin: (value: boolean) => void
+}
+
+const Registration = ({ displayLogin }: showLogin) => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -111,6 +115,8 @@ const Registration = () => {
       email: email,
       password: password
     })
+    .then(() => displayLogin(false))
+    .catch((err) => console.log(err))
     // onLogin(username, password)
   }
 
