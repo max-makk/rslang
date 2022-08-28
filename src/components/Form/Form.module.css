@@ -87,3 +87,17 @@ padding-top: 2.5em;
 .red{
   color: red;
 }
+
+@media (max-width: 558px){
+  .login_form{
+    font-size: 0.6rem;
+    width: 15em;
+  }
+  .login_form_btn{
+    font-size: 0.6rem;
+    padding: 0.4em;
+  }
+  .login_form_input{
+    width: 8em;
+  }
+}
