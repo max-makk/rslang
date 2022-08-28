@@ -5,5 +5,6 @@
   align-items: center;
   justify-content: center;
   max-width: 30em;
-  padding-top: 2em;
+  padding-top: 0.5em;
+  padding-left: 5em;
 }

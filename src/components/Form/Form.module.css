@@ -26,11 +26,21 @@
   text-align: center;
 }
 
-.login_form_header p{
+.login_form_header_p{
   padding: 0 0.5em;
+  border-style: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 500;
 }
-.login_form_header p:hover,
-.login_form_header p:focus{
+
+.login_form_greeting{
+font-weight: 600;
+padding-top: 2.5em;
+}
+
+.login_form_header_p:hover,
+.login_form_header_p:focus{
   cursor: pointer;
   font-weight: 600;
 }
