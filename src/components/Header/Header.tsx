@@ -19,10 +19,16 @@ export const Header = () => {
           Учебник
         </NavLink>
         <NavLink
-            to='/games'
+            to='/sprint'
             className={({isActive}) => (isActive ? `${style.headerLink} ${style.active}` : style.headerLink)}
         >
-          Игры
+          Спринт
+        </NavLink>
+        <NavLink
+            to='/audiogame'
+            className={({isActive}) => (isActive ? `${style.headerLink} ${style.active}` : style.headerLink)}
+        >
+          Аудиовызов
         </NavLink>
         <NavLink
             to='/statistics'

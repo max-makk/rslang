@@ -6,7 +6,6 @@ import userService from '../../services/user'
 
 const initialState = {
   words: [],
-  learned: [],
   difficult: [],
   page: '',
   group: ''
@@ -28,9 +27,6 @@ const textbookSlice = createSlice({
     setDifficultWords(state, { payload }) {
      state.difficult = payload
    },
-    setLearnedWords(state, { payload }) {
-     state.learned = payload
-   },
   },
 })
 
@@ -44,23 +40,23 @@ export const initializeWords = (page: string, group: string) => {
   }
 }
 
+export const initializeAggregatedWords = (group: string, page: string) => {
+  return async (dispatch: Dispatch) => {
+    aggregatedService.getAggregatedWords(group, page).then((response) => {
+      dispatch(setPage(page))
+      dispatch(setPage(group))
+      dispatch(setWords(response[0].paginatedResults))
+    })
+  }
+}
+
 export const initializeHardWords = () => {
   return async (dispatch: Dispatch) => {
-    const id = userService.getUserId()
-    aggregatedService.getHardWords(id).then((response) => {
-      dispatch(setDifficultWords(response))
+    aggregatedService.getHardWords().then((response) => {
+      dispatch(setDifficultWords(response[0].paginatedResults))
     })
   }
 }
 
-export const initializeLearnedWords = () => {
-  return async (dispatch: Dispatch) => {
-    const id = userService.getUserId()
-    aggregatedService.getLearndedWords(id).then((response) => {
-      dispatch(setLearnedWords(response))
-    })
-  }
-}
-
-export const { setGroup, setPage, setWords, setDifficultWords, setLearnedWords } = textbookSlice.actions
+export const { setGroup, setPage, setWords, setDifficultWords } = textbookSlice.actions
 export default textbookSlice.reducer

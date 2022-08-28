@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Home } from './pages/Home/Home';
 import { Footer } from './components/Footer/Footer';
 import './App.css';
@@ -8,10 +8,38 @@ import { Sprint } from './pages/Sprint/Sprint';
 import { AudioGame } from './pages/AudioGame/AudioGame';
 import { Statistics } from './pages/Statistics/Statistics';
 import { Textbook } from './pages/Textbook/Textbook';
+import userService from './services/user'
+import { loginUser } from './state/reducers/user'
+import { useAppDispatch, useAppSelector } from './state/hooks';
+import { initializeAggregatedWords, initializeHardWords, initializeWords } from './state/reducers/textbook';
 
 const App = () => {
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(state => state.user)
+
+  useEffect(() => {
+    const userFromStorage = userService.getUser()
+    if (userFromStorage) {
+      dispatch(loginUser(userFromStorage))
+    }
+  }, [])
+
+  useEffect(() => {
+    if(user) {
+      dispatch(initializeAggregatedWords('0', '0'))
+      dispatch(initializeHardWords())
+    } else {
+      dispatch(initializeWords('0', '0'))
+    }
+  }, [user])
+
+
+  const {words, difficult} = useAppSelector(state => state.textbook)
+  console.log(words)
+  console.log(difficult)
 
   return <>
+
     <Header/>
     <Routes>
       <Route path='/' element={<Home />} />

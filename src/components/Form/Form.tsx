@@ -13,13 +13,6 @@ export const Form = () => {
   const hideWhenVisible = { display: loginVisible ? 'none' : '' }
   const showWhenVisible = { display: loginVisible ? '' : 'none' }
 
-  useEffect(() => {
-    const userFromStorage = userService.getUser()
-    if (userFromStorage) {
-      dispatch(loginUser(userFromStorage))
-    }
-  }, [])
-
   const logout = () => {
     userService.clearUser()
     dispatch(logoutUser(null))

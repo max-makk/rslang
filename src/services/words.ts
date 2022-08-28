@@ -2,8 +2,8 @@ import axios from "axios"
 
 const baseUrl = 'http://localhost:3001'
 
-const getWords = (page: string, group: string) => {
-  const request = axios.get(`${baseUrl}/words?page=${page}&group=${group}`)
+const getWords = (group: string, page: string) => {
+  const request = axios.get(`${baseUrl}/words?group=${group}&page=${page}`)
   return request.then((response) => response.data)
 }
 

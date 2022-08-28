@@ -16,12 +16,14 @@ interface Settings {
   optional: {}
 }
 
-const getSettings = async (id: string) => {
+const getSettings = async () => {
+  const id = tokenService.getUserId()
   const request = await axios.get(`${baseUrl}/users/${id}/settings`, config())
   return request.data
 }
 
-const updateSettings = async (id: string, data: Settings) => {
+const updateSettings = async (data: Settings) => {
+  const id = tokenService.getUserId()
   const request = await axios.put(`${baseUrl}/users/${id}/settings`, data, config())
   return request.data
 }

@@ -16,12 +16,14 @@ interface Statistic {
   optional: {}
 }
 
-const getStatistic = async (id: string) => {
+const getStatistic = async () => {
+  const id = tokenService.getUserId()
   const request = await axios.get(`${baseUrl}/users/${id}/statistics`, config())
   return request.data
 }
 
-const updateStatistic = async (id: string, data: Statistic) => {
+const updateStatistic = async (data: Statistic) => {
+  const id = tokenService.getUserId()
   const request = await axios.put(`${baseUrl}/users/${id}/statistics`, data, config())
   return request.data
 }

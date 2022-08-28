@@ -16,27 +16,32 @@ interface Word {
   optional: {}
 }
 
-const getAllUserWords = async (id: string) => {
+const getAllUserWords = async () => {
+  const id = tokenService.getUserId()
   const request = await axios.get(`${baseUrl}/users/${id}/words`)
   return request.data
 }
 
-const createUserWord   = async (id: string, wordId: string, data: Word) => {
+const createUserWord   = async (wordId: string, data: Word) => {
+  const id = tokenService.getUserId()
   const request = await axios.post(`${baseUrl}/users/${id}/words/${wordId}`, data, config())
   return request.data
 }
 
-const getUserWord = async (id: string, wordId: string) => {
+const getUserWord = async (wordId: string) => {
+  const id = tokenService.getUserId()
   const request = await axios.get(`${baseUrl}/users/${id}/words/${wordId}`, config())
   return request.data
 }
 
-const updateUserWord = async (id: string, wordId: string, data: Word) => {
+const updateUserWord = async (wordId: string, data: Word) => {
+  const id = tokenService.getUserId()
   const request = await axios.put(`${baseUrl}/users/${id}/words/${wordId}`, data, config())
   return request.data
 }
 
-const deleteUserWord = async (id: string, wordId: string) => {
+const deleteUserWord = async (wordId: string) => {
+  const id = tokenService.getUserId()
   const request = await axios.delete(`${baseUrl}/users/${id}/words/${wordId}`, config() )
   return request.data
 }
