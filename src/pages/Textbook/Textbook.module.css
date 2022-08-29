@@ -46,3 +46,11 @@
   border-left: none;
   border-radius: 0 2em 2em 0;
 }
+
+.words {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  padding: 1.5em 0;
+}
