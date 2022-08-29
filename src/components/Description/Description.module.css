@@ -9,6 +9,12 @@
   padding-left: 5em;
 }
 
+@media (max-width: 768px){
+  .description{
+    font-size: 0.75rem;
+  }
+}
+
 @media (max-width: 558px){
   .description{
     font-size: 0.5rem;

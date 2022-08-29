@@ -125,10 +125,10 @@ const Login = () => {
         userService.setUser(user);
 
         dispatch(loginUser(user));
-        // notify(`${user.name} logged in!`)
+        alert(`${user.name}, вы вошли в приложение!`)
       })
       .catch(() => {
-        // notify('wrong username/password', 'alert')
+         alert('Неверное имя и/или пароль')
       });
   };
 
@@ -186,6 +186,7 @@ const Registration = ({ displayLogin }: showLogin) => {
         password: password,
       })
       .then(() => displayLogin(false))
+      .then(() => alert('Регистрация прошла успешно! Войдите в приложение.'))
       .catch((err) => console.log(err));
     // onLogin(username, password)
   };
