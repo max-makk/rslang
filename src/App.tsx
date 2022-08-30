@@ -10,10 +10,12 @@ import { Statistics } from './pages/Statistics/Statistics';
 import { Textbook } from './pages/Textbook/Textbook';
 import userService from './services/user'
 import { loginUser } from './state/reducers/user'
-import { useAppDispatch } from './state/hooks';
+import { useAppDispatch, useAppSelector } from './state/hooks';
+import { initializeAggregatedWords, initializeHardWords, initializeWords } from './state/reducers/textbook';
 
 const App = () => {
   const dispatch = useAppDispatch()
+  const user = useAppSelector(state => state.user)
 
   useEffect(() => {
     const userFromStorage = userService.getUser()
@@ -22,6 +24,19 @@ const App = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if(user) {
+      dispatch(initializeAggregatedWords('0', '0'))
+      dispatch(initializeHardWords())
+    } else {
+      dispatch(initializeWords('0', '0'))
+    }
+  }, [user])
+
+
+  const {words, difficult} = useAppSelector(state => state.textbook)
+  console.log(words)
+  console.log(difficult)
 
   return <>
 
