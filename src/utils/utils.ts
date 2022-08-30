@@ -1,5 +1,5 @@
 import wordsService from '../services/words'
-import { Word } from '../types/types'
+import { IWord } from '../types/types'
 
 export const getRandomPageNumber = () => {
   return Math.floor(Math.random() * 30)
@@ -20,7 +20,7 @@ export const shuffle =(array: any) => {
   return array;
 }
 
-export const createSprintDeck = (arr: Word[]) => {
+export const createSprintDeck = (arr: IWord[]) => {
   const correct = []
   const incorrect = []
   const res = []
