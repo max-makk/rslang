@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import style from './Game.module.css'
 import { initWordsLevel, setGroup, setPage, increaseIdx } from '../../../state/reducers/sprint'
 import { getRandomGroupNumber, getRandomPageNumber } from '../../../utils/utils';
-import { setNotification } from '../../../state/reducers/notification';
 
 interface Deck {
   id: string,
@@ -20,7 +19,6 @@ export const Game = () => {
   const [current, setCurrent] = useState<Deck>(deck[idx])
   const handleAnswer = (answer: boolean) => {
     if(answer === current.result) {
-      setNotification(true)
       console.log('yгадаl')
     } else {
       console.log('ошбся')
