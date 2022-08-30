@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 1em;
+  gap: 1em;
 }
 
 .textbook_header {
@@ -18,7 +19,6 @@
 }
 
 .textbook_button {
-  background: var(--white);
   cursor: pointer;
   border: 2px solid var(--black);
   border-radius: 2em;
@@ -29,8 +29,17 @@
   font-weight: 400;
 }
 
+.textbook_button:hover {
+  box-shadow: none;
+  background: var(--white);
+}
+
 .textbook_choose {
   position: relative;
+}
+
+.page_button {
+  background: var(--page);
 }
 
 .textbook_page {
@@ -46,11 +55,17 @@
   border-left: none;
   border-radius: 0 2em 2em 0;
 }
+.textbook_game {
+  background-color: var(--game);
+}
+
+.textbook_hard_words {
+  background-color: var(--hard);
+}
 
 .words {
   display: flex;
   flex-direction: column;
   gap: 1em;
   align-items: center;
-  padding: 1.5em 0;
 }

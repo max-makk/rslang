@@ -24,7 +24,21 @@ export const Textbook = () => {
   const [isRightDisabled, setRightDisabled] = useState(false);
   const [isLeftDisabled, setLeftDisabled] = useState(false);
   const pageNumber = parseInt(page);
+  const [backgroundColor, setBackgroundColor] = useState(`var(--level${+group + 1})`);
 
+  const disableUnableClicks = () => {
+    if (pageNumber === 29) {
+      setRightDisabled(true)
+      setLeftDisabled(false)
+    } else if (pageNumber === 0) {
+      setLeftDisabled(true)
+      setRightDisabled(false)
+    } else if (pageNumber != 0 && isLeftDisabled) {
+      setLeftDisabled(false)
+    } else if (pageNumber != 29 && isRightDisabled) {
+      setRightDisabled(false)
+    }
+  }
   useEffect(() => {
     if (user) {
       dispatch(initializeAggregatedWords(group, page))
@@ -33,30 +47,19 @@ export const Textbook = () => {
       dispatch(initializeWords(group, page))
       setModalLevel(false)
       setModalPage(false)
+      setBackgroundColor(`var(--level${+group + 1})`)
+      disableUnableClicks();
     }
   }, [group, page])
 
   const HandleRightClick = () => {
-    if (pageNumber === 29) {
-      setRightDisabled(true)
-    } else {
-      if (pageNumber === 0 && isLeftDisabled) {
-        setLeftDisabled(false)
-      }
-      const nextPage = pageNumber + 1;
-      dispatch(setPage(nextPage))
-    }
+    const nextPage = pageNumber + 1;
+    dispatch(setPage(nextPage))
   }
   const HandleLeftClick = () => {
-    if (pageNumber === 0) {
-      setLeftDisabled(true)
-    } else {
-      if (pageNumber === 29 && isRightDisabled) {
-        setRightDisabled(false)
-      }
-      const prevPage = pageNumber - 1;
-      dispatch(setPage(prevPage))
-    }
+    const prevPage = pageNumber - 1;
+    dispatch(setPage(prevPage))
+
   }
 
   return (
@@ -66,6 +69,7 @@ export const Textbook = () => {
           <div className={style.textbook_choose}>
             <button className={`${style.textbook_button} ${style.textbook_level}`}
                     onClick={() => setModalLevel(true)}
+                    style={{backgroundColor}}
             >
               Уровень {+group + 1}
             </button>
@@ -74,20 +78,22 @@ export const Textbook = () => {
             </Modal>}
           </div>
           <div className={style.textbook_choose}>
-            <button className={`${style.textbook_button} ${style.textbook_arrow_left}`}
+            <button className={`${style.textbook_button} ${style.textbook_arrow_left} ${style.page_button}`}
                     onClick={HandleLeftClick}
                     disabled={isLeftDisabled}>&lt;</button>
-            <button className={`${style.textbook_button} ${style.textbook_page}`}
+            <button className={`${style.textbook_button} ${style.textbook_page} ${style.page_button}`}
                     onClick={() => setModalPage(true)}>Страница {pageNumber + 1}</button>
-            <button className={`${style.textbook_button} ${style.textbook_arrow_right}`}
+            <button className={`${style.textbook_button} ${style.textbook_arrow_right} ${style.page_button}`}
                     onClick={HandleRightClick}
                     disabled={isRightDisabled}>&gt;</button>
             {modalPage && <Modal open={modalPage} onClose={() => setModalPage(false)}>
               <PageList/>
             </Modal>}
           </div>
-          <button className={`${style.textbook_button} ${style.textbook_call}`}>Аудиовызов</button>
-          <button className={`${style.textbook_button} ${style.textbook_sprint}`}>Спринт</button>
+          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_call}`}>Аудиовызов
+          </button>
+          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`}>Спринт
+          </button>
           <button className={`${style.textbook_button} ${style.textbook_hard_words}`}>Сложные слова</button>
         </div>
         <div className={style.words}>
