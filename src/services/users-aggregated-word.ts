@@ -35,6 +35,12 @@ const getLearnedWords = async () => {
   return request.data
 }
 
+const getAllAggregatedWords = () => {
+  const id = tokenService.getUserId()
+  const request = axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=3600`, config())
+  return request.then((response) => response.data)
+}
+
 // const getAggregatedWord = async (id: string, wordId: string) => { // !!!
 //   const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords/${wordId}`, config())
 //   return request.data
