@@ -14,7 +14,7 @@
 .info {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 1em;
 }
 
 .headings {
@@ -22,11 +22,30 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5em;
-  padding-bottom: 0.5em;
 }
 
-.translate_word {
+.level1 {
+  color: var(--level1);
+}
+
+.level2 {
+  color: var(--level2);
+}
+
+.level3 {
+  color: var(--level3);
+}
+
+.level4 {
   color: var(--level4);
+}
+
+.level5 {
+  color: var(--level5);
+}
+
+.level6 {
+  color: var(--level6);
 }
 
 .audio_button {
@@ -35,10 +54,6 @@
   background-color: transparent;
   border: none;
   height: 2em;
-}
-
-.audio {
-  color: var(--level4);
 }
 
 .heading {
@@ -51,6 +66,12 @@
 
 .example b {
   font-weight: 600;
+}
+
+.translate_sentences {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
 .translate_example {
