@@ -42,7 +42,7 @@
  }
  
  .team_text{
-   width: 25em;
+   max-width: 25em;
    box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
    border: var(--black) solid 2px;
    border-radius: 5em;
@@ -58,3 +58,20 @@ color: var(--black);
 font-weight: 600;
  }
  
+ @media (max-width: 558px){
+  .team_ava {
+    width: 3em;
+    height: 3em;
+  }
+
+  .team_ava a{
+    width: 3em;
+    height: 3em;
+  }
+
+  .team_text{
+   /*  width: 20em; */
+    font-size: 0.6rem;
+   line-height: 0.8rem;
+  }
+}
