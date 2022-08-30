@@ -2,13 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Dispatch } from 'redux'
 import aggregatedService from '../../services/users-aggregated-word'
 import wordsService from '../../services/words'
-import userService from '../../services/user'
 
 const initialState = {
   words: [],
   difficult: [],
-  page: '',
-  group: ''
+  page: '0',
+  group: '0'
 }
 
 const textbookSlice = createSlice({
@@ -33,8 +32,6 @@ const textbookSlice = createSlice({
 export const initializeWords = (page: string, group: string) => {
   return async (dispatch: Dispatch) => {
     wordsService.getWords(page, group).then((response) => {
-      dispatch(setPage(page))
-      dispatch(setPage(group))
       dispatch(setWords(response))
     })
   }

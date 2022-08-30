@@ -1,0 +1,11 @@
+.level_list {
+  display: flex;
+  flex-direction: column;
+  width: 6em;
+  padding: 0.2em 0.5em;
+  gap: 0.3em;
+}
+
+.level_item {
+  cursor: pointer;
+}
