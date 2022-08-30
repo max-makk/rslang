@@ -1,12 +1,14 @@
-.level_list {
+.page_list {
   display: flex;
   flex-direction: column;
-  width: 6em;
-  padding: 0.2em 0.5em;
+  width: 9em;
+  padding: 0.5em;
   gap: 0.3em;
+  height: 70vh;
+  overflow: auto;
   font-size: 0.8em;
 }
 
-.level_item {
+.page_item {
   cursor: pointer;
 }

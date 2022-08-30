@@ -11,6 +11,7 @@ import {
 import { IWord } from '../../types/types';
 import { Word } from '../../components/Word/Word';
 import { LevelList } from '../../components/LevelList/LevelList';
+import { PageList } from '../../components/PageList/PageList';
 
 export const Textbook = () => {
   const dispatch = useAppDispatch()
@@ -18,7 +19,8 @@ export const Textbook = () => {
   const group = useAppSelector(state => state.textbook.group)
   const page = useAppSelector(state => state.textbook.page);
   const {words, difficult}: { words: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
-  const [modal, setModal] = useState(false);
+  const [modalLevel, setModalLevel] = useState(false);
+  const [modalPage, setModalPage] = useState(false);
   const [isRightDisabled, setRightDisabled] = useState(false);
   const [isLeftDisabled, setLeftDisabled] = useState(false);
   const pageNumber = parseInt(page);
@@ -29,7 +31,8 @@ export const Textbook = () => {
       dispatch(initializeHardWords())
     } else {
       dispatch(initializeWords(group, page))
-      setModal(false)
+      setModalLevel(false)
+      setModalPage(false)
     }
   }, [group, page])
 
@@ -62,23 +65,26 @@ export const Textbook = () => {
         <div className={style.textbook_buttons}>
           <div className={style.textbook_choose}>
             <button className={`${style.textbook_button} ${style.textbook_level}`}
-                    onClick={() => setModal(true)}
+                    onClick={() => setModalLevel(true)}
             >
               Уровень {+group + 1}
             </button>
-            {modal && <Modal open={modal} onClose={() => setModal(false)}>
+            {modalLevel && <Modal open={modalLevel} onClose={() => setModalLevel(false)}>
               <LevelList/>
             </Modal>}
           </div>
-          <div className={style.textbook_pages}>
+          <div className={style.textbook_choose}>
             <button className={`${style.textbook_button} ${style.textbook_arrow_left}`}
                     onClick={HandleLeftClick}
                     disabled={isLeftDisabled}>&lt;</button>
-
-            <button className={`${style.textbook_button} ${style.textbook_page}`}>Страница {pageNumber + 1}</button>
+            <button className={`${style.textbook_button} ${style.textbook_page}`}
+                    onClick={() => setModalPage(true)}>Страница {pageNumber + 1}</button>
             <button className={`${style.textbook_button} ${style.textbook_arrow_right}`}
                     onClick={HandleRightClick}
                     disabled={isRightDisabled}>&gt;</button>
+            {modalPage && <Modal open={modalPage} onClose={() => setModalPage(false)}>
+              <PageList/>
+            </Modal>}
           </div>
           <button className={`${style.textbook_button} ${style.textbook_call}`}>Аудиовызов</button>
           <button className={`${style.textbook_button} ${style.textbook_sprint}`}>Спринт</button>
