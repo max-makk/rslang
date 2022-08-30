@@ -10,3 +10,27 @@
 .level_item {
   cursor: pointer;
 }
+
+.level_item_1 {
+  color: var(--level1);
+}
+
+.level_item_2 {
+  color: var(--level2);
+}
+
+.level_item_3 {
+  color: var(--level3);
+}
+
+.level_item_4 {
+  color: var(--level4);
+}
+
+.level_item_5 {
+  color: var(--level5);
+}
+
+.level_item_6 {
+  color: var(--level6);
+}
