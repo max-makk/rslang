@@ -27,6 +27,9 @@ const sprintSlice = createSlice({
     startGame (state, {payload}) {
       state.isGameStarted = payload
     },
+    setGuestWords(state, {payload}) {
+      state.words = payload
+    },
     initWords(state, {payload}) {
       state.words = payload
     },
@@ -55,5 +58,13 @@ export const initWordsLevel = (group: string, page: string) => {
   }
 }
 
-export const { setGroup, setPage, initWords, startGame, setDeck, increaseIdx } = sprintSlice.actions
+export const {
+  setGroup,
+  setPage, 
+  initWords, 
+  startGame, 
+  setDeck, 
+  increaseIdx,
+  setGuestWords
+} = sprintSlice.actions
 export default sprintSlice.reducer

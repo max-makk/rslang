@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import style from './Game.module.css'
 import { initWordsLevel, setGroup, setPage, increaseIdx } from '../../../state/reducers/sprint'
-import { getRandomGroupNumber, getRandomPageNumber } from '../../../utils/utils';
+import { Timer } from '../Timer/Timer';
+
 
 interface Deck {
   id: string,
@@ -35,7 +36,7 @@ export const Game = () => {
     <div className={style.modal}>
       <div className={style.header}>
         <div className={style.score}>23</div>
-        <div className={style.timer}>60</div>
+        <div className={style.timer}><Timer /></div>
       </div>
       <div className={style.card}>
         <div className={style.circles}>
