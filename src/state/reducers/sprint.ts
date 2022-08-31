@@ -10,6 +10,7 @@ import { getExtraWords, getExtraAggregatedWords } from "../../pages/Sprint/utils
 interface State {
   isGameStarted: boolean,
   useTextbook: boolean,
+  showResults: boolean,
   idx: number,
   words: [],
   guessed: String[],
@@ -22,6 +23,7 @@ interface State {
 const initialState: State = {
   isGameStarted: false,
   useTextbook: false,
+  showResults: false,
   idx: 0,
   words: [],
   guessed: [],
@@ -63,6 +65,9 @@ const sprintSlice = createSlice({
     addUnGuessed(state, {payload}) {
       state.unguessed.push(payload)
     },
+    setResults(state, {payload}) {
+      state.showResults = payload
+    },
   },
 })
 
@@ -89,6 +94,7 @@ export const setUserGame = (group?: string, page?: string) => {
 }
 
 export const {
+  setResults,
   addGuessed,
   addUnGuessed,
   setGroup,

@@ -7,12 +7,14 @@ import { getRandomGroupNumber, getRandomPageNumber } from '../../utils/utils';
 import { StartButtons } from './StartButons/StartButtons';
 import wordsService from '../../services/words'
 import { getExtraWords } from './utils';
+import { ResultModal } from './ResultsModal/ResultsModal';
 
 export const Sprint = () => {
 
   const dispatch = useAppDispatch()
 
   const { useTextbook } = useAppSelector(state => state.sprint)
+  const { showResults } = useAppSelector(state => state.sprint)
   const { group, page, words, isGameStarted } = useAppSelector(state => state.sprint)
   
   const user = useAppSelector(state => state.user)
@@ -29,7 +31,7 @@ export const Sprint = () => {
   }, [])
 
   return <div className={style.wrapper}>
-    <StartButtons />
+    {showResults ? <ResultModal /> : < StartButtons />}
     {isGameStarted && <Game />}
   </div>
 }

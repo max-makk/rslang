@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import style from './Game.module.css'
-import { setGroup, setPage, increaseIdx, addGuessed, addUnGuessed, startGame } from '../../../state/reducers/sprint'
+import { setGroup, setPage, increaseIdx, addGuessed, addUnGuessed, startGame, setResults } from '../../../state/reducers/sprint'
 import { Timer } from '../Timer/Timer';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
@@ -16,6 +16,7 @@ export const Game = () => {
   const dispatch = useAppDispatch()
   const [green, setGreen] = useState(false)
   const [red, setRed] = useState(false)
+  const user = useAppSelector(state => state.user)
   const { group, page, words, deck, idx, guessed } = useAppSelector(state => state.sprint)
   const [current, setCurrent] = useState<Deck>(deck[idx])
   const handleAnswer = (answer: boolean) => {
@@ -25,22 +26,19 @@ export const Game = () => {
       setTimeout(() => {
         setGreen(false)
       }, 200);
-      console.log('yгадаl')
     } else {
       dispatch(addUnGuessed(current.id))
       setRed(true)
       setTimeout(() => {
         setRed(false)
       }, 200);
-      console.log('ошбся')
     }
     if(idx + 1 === deck.length) {
       dispatch(startGame(false))
+      // dispatch(setResults(true))
     }
     dispatch(increaseIdx(null))
   }
-
-  console.log(words)
 
   useEffect(() => {
     setCurrent(deck[idx])

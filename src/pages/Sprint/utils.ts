@@ -1,10 +1,7 @@
-import React from 'react'
 import wordsService from '../../services/words'
-import userWordsService from '../../services/users-aggregated-word'
-
-import { useAppDispatch, useAppSelector } from '../../state/hooks'
-import { getRandomGroupNumber, getRandomPageNumber } from '../../utils/utils'
 import usersAggregatedWord from '../../services/users-aggregated-word'
+
+import { getRandomGroupNumber, getRandomPageNumber } from '../../utils/utils'
 import { IWord } from '../../types/types'
 
 export const getExtraWords = async (group?: string, page?: string) => {
@@ -30,7 +27,7 @@ export const getExtraAggregatedWords = async (group?: string, page?: string) => 
   const words3 = await usersAggregatedWord.getAggregatedWords(
     group || String(getRandomGroupNumber()), page || String(getRandomPageNumber())
     )
-  return [...words1, ...words2, ...words3]
+  return [...words1[0].paginatedResults, ...words2[0].paginatedResults, ...words3[0].paginatedResults]
 }
 
 interface IAggregated extends IWord {
@@ -38,20 +35,4 @@ interface IAggregated extends IWord {
     difficulty: string
     optional: any
   }
-}
-
-export const UpdateUserWords = () => {
-  const dispatch = useAppDispatch()
-  const words: IAggregated[] = useAppSelector(state => state.sprint.words)
-  const res = words.filter(el => {
-    if(el.userWord) {
-      return true
-    } else {
-      return false
-    }
-  })
-  console.log(res)
-  const guessed = useAppSelector(state => state.sprint.guessed)
-  const unguessed = useAppSelector(state => state.sprint.unguessed)
-
 }
