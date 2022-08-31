@@ -14,7 +14,7 @@ const config = () => {
 const getAggregatedWords = (group: string, page: string) => {
   const id = tokenService.getUserId()
   const request = axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=20&group=${group}&page=${page}`, config())
-  return request.then((response) => response.data)
+  return request.then((response) => response.data[0].paginatedResults)
 }
 
 const getHardWords = async () => {
@@ -29,7 +29,7 @@ const getEasyWords = async () => {
   return request.data
 }
 
-const getLearndedWords = async () => {
+const getLearnedWords = async () => {
   const id = tokenService.getUserId()
   const request = await axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=3600&filter={"userWord.optional.learned":true}`, config())
   return request.data
@@ -44,5 +44,4 @@ export default {
   getAggregatedWords,
   getHardWords,
   getEasyWords,
-  getLearndedWords
 }
