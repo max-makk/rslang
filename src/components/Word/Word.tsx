@@ -2,10 +2,13 @@ import style from './Word.module.css';
 import { IWord } from "../../types/types";
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded';
 import { useState } from 'react';
+import { Button } from "../Button/Button";
 
 export const Word = (word: IWord) => {
   const [color] = useState(`var(--level${word.group + 1})`);
   const [backgroundColor] = useState(`var(--level${word.group + 1})`);
+  const [colorLearned, setColorLearned] = useState(false);
+  const [colorDifficult, setColorDifficult] = useState(false);
   const baseUrl = 'http://localhost:3001'
 
   const playAudio = () => {
@@ -21,6 +24,14 @@ export const Word = (word: IWord) => {
         }
       }
     }
+  }
+  const handleLearnedWords = () => {
+    setColorLearned(current => !current);
+
+  }
+
+  const handleDifficultWords = () => {
+    setColorDifficult(current => !current);
   }
 
   return (
@@ -45,6 +56,14 @@ export const Word = (word: IWord) => {
             <div className={style.example} dangerouslySetInnerHTML={{__html: word.textExample}}/>
             <div className={style.translate_example}>{word.textExampleTranslate}</div>
           </div>
+        </div>
+        <div className={style.buttons}>
+          <Button style={{
+            backgroundColor: colorLearned ? `var(--learned)` : '',
+          }} className={style.learned} onClick={() => handleLearnedWords()}>Изученное</Button>
+          <Button style={{
+            backgroundColor: colorDifficult ? `var(--hard)` : '',
+          }} className={style.difficult} onClick={() => handleDifficultWords()}>Сложное</Button>
         </div>
       </div>
   )
