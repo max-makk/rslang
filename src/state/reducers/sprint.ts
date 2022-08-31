@@ -1,20 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch } from 'redux'
 import { createSprintDeck, getRandomGroupNumber, getRandomPageNumber } from "../../utils/utils";
 import userService from '../../services/user'
 
 import wordsService from '../../services/words'
 import { RootState, store } from "../store";
+import { getExtraWords, getExtraAggregatedWords } from "../../pages/Sprint/utils";
 
-const initialState = {
+interface State {
+  isGameStarted: boolean,
+  useTextbook: boolean,
+  idx: number,
+  words: [],
+  guessed: String[],
+  unguessed: String[],
+  deck: [],
+  page: string | undefined,
+  group: string | undefined,
+}
+
+const initialState: State = {
   isGameStarted: false,
   useTextbook: false,
   idx: 0,
   words: [],
-  answers: [],
+  guessed: [],
+  unguessed: [],
   deck: [],
-  page: '',
-  group: '',
+  page: undefined,
+  group: undefined,
 }
 
 const sprintSlice = createSlice({
@@ -26,9 +40,7 @@ const sprintSlice = createSlice({
     },
     startGame (state, {payload}) {
       state.isGameStarted = payload
-    },
-    setGuestWords(state, {payload}) {
-      state.words = payload
+      state.idx = 0
     },
     initWords(state, {payload}) {
       state.words = payload
@@ -44,27 +56,46 @@ const sprintSlice = createSlice({
     },
     setDeck(state, {payload}) {
       state.deck = payload
-    }
+    },
+    addGuessed(state, {payload}) {
+      state.guessed.push(payload)
+    },
+    addUnGuessed(state, {payload}) {
+      state.unguessed.push(payload)
+    },
   },
 })
 
-export const initWordsLevel = (group: string, page: string) => {
+export const setGame = (group?: string, page?: string) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    wordsService.getWords(group, page).then(response => {
-      dispatch(initWords(response))
-      const deck = createSprintDeck(response)
+    getExtraWords(group, page).then(res => {
+      dispatch(initWords(res))
+      const deck = createSprintDeck(res)
       dispatch(setDeck(deck))
+      dispatch(startGame(true))
+    })
+  }
+}
+
+export const setUserGame = (group?: string, page?: string) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    getExtraAggregatedWords(group, page).then(res => {
+      dispatch(initWords(res))
+      const deck = createSprintDeck(res)
+      dispatch(setDeck(deck))
+      dispatch(startGame(true))
     })
   }
 }
 
 export const {
+  addGuessed,
+  addUnGuessed,
   setGroup,
   setPage, 
   initWords, 
   startGame, 
   setDeck, 
   increaseIdx,
-  setGuestWords
 } = sprintSlice.actions
 export default sprintSlice.reducer

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import style from './Sprint.module.css'
-import { initWordsLevel, setGroup, setGuestWords, setPage } from '../../state/reducers/sprint'
+import { setGroup, setPage } from '../../state/reducers/sprint'
 import { Game } from './Game/Game';
 import { getRandomGroupNumber, getRandomPageNumber } from '../../utils/utils';
 import { StartButtons } from './StartButons/StartButtons';
@@ -20,19 +20,10 @@ export const Sprint = () => {
     if(user) {
       if(useTextbook) {
 
-      } else {
-
       }
     } else {
       if(useTextbook) {
 
-      } else {
-        (async () => {
-          const extraWords = await getExtraWords()
-          dispatch(setGuestWords())
-        })()
-        // const deck = createDeck(words)
-        // dispatch(initRandomAnwers(String(getRandomGroupNumber()), String(getRandomPageNumber())))
       }
     }
   }, [])

@@ -1,15 +1,19 @@
 import { useAppDispatch, useAppSelector } from '../../../state/hooks'
 import style from './StartButtons.module.css'
-import { setGroup, startGame } from '../../../state/reducers/sprint'
+import { setGroup, setGame, setUserGame, startGame } from '../../../state/reducers/sprint'
 
 export const StartButtons = () => {
 
   const dispatch = useAppDispatch()
   const { useTextbook } = useAppSelector(state => state.sprint)
+  const user = useAppSelector(state => state.user)
 
   const handleLevelClick = (lvl: string) => {
-    dispatch(setGroup(String(Number(lvl) - 1)))
-    dispatch(startGame(true))
+    if(user) {
+      dispatch(setUserGame(String(Number(lvl) - 1)))
+    } else {
+      dispatch(setGame(String(Number(lvl) - 1)))
+    }
   }
   
 
