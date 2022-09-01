@@ -57,6 +57,21 @@ justify-content: center;
 .audiogame_gamewindow_main{
   margin-top: 2em;
   margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.audiogame_gamewindow_sound{
+  width: 5em;
+  height: 5em;
+  border: var(--black) solid 2px;
+  border-radius: 3em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+  cursor: pointer;
+  color: var(--level4);
 }
 
 .audiogame_gamewindow_words_string{
