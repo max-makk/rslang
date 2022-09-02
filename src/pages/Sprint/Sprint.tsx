@@ -13,8 +13,8 @@ export const Sprint = () => {
 
   const dispatch = useAppDispatch()
 
-  const { useTextbook } = useAppSelector(state => state.sprint)
-  const { showResults } = useAppSelector(state => state.sprint)
+  const { useTextbook, showResults } = useAppSelector(state => state.sprint)
+  const textbook = useAppSelector(state => state.textbook)
   const { group, page, words, isGameStarted } = useAppSelector(state => state.sprint)
   
   const user = useAppSelector(state => state.user)

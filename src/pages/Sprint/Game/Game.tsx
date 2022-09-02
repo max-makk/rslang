@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import style from './Game.module.css'
-import { increaseIdx, addGuessed, addUnGuessed, startGame, displayResults, setResults } from '../../../state/reducers/sprint'
+import { increaseIdx, addGuessed, addUnGuessed, startGame, displayResults, setResults, sendResults } from '../../../state/reducers/sprint'
 import { Timer } from '../Timer/Timer';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CloseIcon from "@mui/icons-material/Close";
 import { createResults } from '../utils'
 
 interface Deck {
@@ -18,7 +19,7 @@ export const Game = () => {
   const [green, setGreen] = useState(false)
   const [red, setRed] = useState(false)
   const user = useAppSelector(state => state.user)
-  const {deck, idx, guessed, unguessed, words, isGameStarted} = useAppSelector(state => state.sprint)
+  const {deck, idx, guessed, unguessed, words, isGameStarted, useTextbook} = useAppSelector(state => state.sprint)
   const [current, setCurrent] = useState<Deck>(deck[idx])
   const handleAnswer = (answer: boolean) => {
     if(answer === current.result) {
@@ -46,7 +47,11 @@ export const Game = () => {
     dispatch(setResults(arr))
     dispatch(displayResults(true))
     if(user) {
-      // sendResults(arr)
+      if(useTextbook) {
+        // sendTBResults
+      } {
+        dispatch(sendResults(arr))
+      }
     }
   }
 
@@ -56,6 +61,7 @@ export const Game = () => {
 
   return (
     <div className={style.modal}>
+      <div className={style.close} onClick={() => stopGame()}><CloseIcon /></div>
       <div className={style.header}>
         <div className={style.score}>100</div>
         <div className={style.timer}><Timer /></div>

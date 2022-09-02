@@ -19,13 +19,13 @@ export const getExtraWords = async (group?: string, page?: string) => {
 
 export const getExtraAggregatedWords = async (group?: string, page?: string) => {
   const words1 = await usersAggregatedWord.getAggregatedWords(
-    group || String(getRandomGroupNumber()), page || String(getRandomPageNumber())
+    group || String(getRandomGroupNumber()), page || String('0')
     )
   const words2 = await usersAggregatedWord.getAggregatedWords(
-    group || String(getRandomGroupNumber()), page || String(getRandomPageNumber())
+    group || String(getRandomGroupNumber()), page || String('2')
     )
   const words3 = await usersAggregatedWord.getAggregatedWords(
-    group || String(getRandomGroupNumber()), page || String(getRandomPageNumber())
+    group || String(getRandomGroupNumber()), page || String('1')
     )
   return [...words1, ...words2, ...words3]
 }

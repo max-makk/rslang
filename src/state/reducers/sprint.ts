@@ -6,6 +6,7 @@ import userService from '../../services/user'
 import wordsService from '../../services/words'
 import { RootState, store } from "../store";
 import { getExtraWords, getExtraAggregatedWords } from "../../pages/Sprint/utils";
+import usersWords from "../../services/users-words";
 
 interface State {
   isGameStarted: boolean,
@@ -23,7 +24,7 @@ interface State {
 
 const initialState: State = {
   isGameStarted: false,
-  useTextbook: false,
+  useTextbook: true,
   showResults: false,
   idx: 0,
   words: [],
@@ -96,6 +97,40 @@ export const setUserGame = (group?: string, page?: string) => {
       const deck = createSprintDeck(res)
       dispatch(setDeck(deck))
       dispatch(startGame(true))
+    })
+  }
+}
+
+export const sendResults = (arr: any) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const { sprint } = getState()
+    arr[0].forEach((el: any) => {
+      const item: any = sprint.words.find((w: any) => w._id === el._id)
+      const obj = {
+        difficulty: "easy",
+        optional: {
+          learned: true
+        } 
+      }
+      if(item.userWord) {
+        usersWords.updateUserWord(item._id, obj)
+      } else {
+        usersWords.createUserWord(item._id, obj)
+      }
+    })
+    arr[1].forEach((el: any) => {
+      const item: any = sprint.words.find((w: any) => w._id === el._id)
+      const obj = {
+        difficulty: "hard",
+        optional: {
+          learned: false
+        } 
+      }
+      if(item.userWord) {
+        usersWords.updateUserWord(item._id, obj)
+      } else {
+        usersWords.createUserWord(item._id, obj)
+      }
     })
   }
 }

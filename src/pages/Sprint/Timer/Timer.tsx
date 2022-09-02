@@ -1,11 +1,11 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
-import { displayResults, startGame, setResults } from "../../../state/reducers/sprint";
+import { displayResults, startGame, setResults, sendResults } from "../../../state/reducers/sprint";
 import { createResults } from "../utils";
 
 export const Timer = () => {
   const dispatch = useAppDispatch()
-  const {words, guessed, unguessed} = useAppSelector(state => state.sprint)
+  const {words, guessed, unguessed, useTextbook} = useAppSelector(state => state.sprint)
   const user = useAppSelector(state => state.user)
 
   const stopGame = () => {
@@ -14,6 +14,11 @@ export const Timer = () => {
     dispatch(setResults(arr))
     dispatch(displayResults(true))
     if(user) {
+      if(useTextbook) {
+        // sendTBResults
+      } {
+        dispatch(sendResults(arr))
+      }
     }
   }
 

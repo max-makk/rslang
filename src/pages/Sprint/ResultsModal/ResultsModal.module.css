@@ -16,11 +16,13 @@
 .wrapper {
   max-height: 80vh;
   overflow-y: auto;
+  padding: 0 2em;
 }
 
 .close {
   display: flex;
   cursor: pointer;
+  margin-bottom: 1em;
 }
 
 .close:hover {
