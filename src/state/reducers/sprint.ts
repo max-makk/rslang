@@ -13,11 +13,12 @@ interface State {
   showResults: boolean,
   idx: number,
   words: [],
-  guessed: String[],
-  unguessed: String[],
+  guessed: any,
+  unguessed: any,
   deck: [],
   page: string | undefined,
   group: string | undefined,
+  results: any
 }
 
 const initialState: State = {
@@ -31,6 +32,7 @@ const initialState: State = {
   deck: [],
   page: undefined,
   group: undefined,
+  results: []
 }
 
 const sprintSlice = createSlice({
@@ -41,6 +43,8 @@ const sprintSlice = createSlice({
       state.idx += 1
     },
     startGame (state, {payload}) {
+      state.guessed = []
+      state.unguessed = []
       state.isGameStarted = payload
       state.idx = 0
     },
@@ -65,9 +69,12 @@ const sprintSlice = createSlice({
     addUnGuessed(state, {payload}) {
       state.unguessed.push(payload)
     },
-    setResults(state, {payload}) {
+    displayResults(state, {payload}) {
       state.showResults = payload
     },
+    setResults(state, {payload}) {
+      state.results = payload
+    }
   },
 })
 
@@ -95,6 +102,7 @@ export const setUserGame = (group?: string, page?: string) => {
 
 export const {
   setResults,
+  displayResults,
   addGuessed,
   addUnGuessed,
   setGroup,

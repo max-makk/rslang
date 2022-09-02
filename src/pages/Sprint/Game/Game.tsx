@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import style from './Game.module.css'
-import { setGroup, setPage, increaseIdx, addGuessed, addUnGuessed, startGame, setResults } from '../../../state/reducers/sprint'
+import { increaseIdx, addGuessed, addUnGuessed, startGame, displayResults, setResults } from '../../../state/reducers/sprint'
 import { Timer } from '../Timer/Timer';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { createResults } from '../utils'
 
 interface Deck {
   id: string,
@@ -17,7 +18,7 @@ export const Game = () => {
   const [green, setGreen] = useState(false)
   const [red, setRed] = useState(false)
   const user = useAppSelector(state => state.user)
-  const { group, page, words, deck, idx, guessed } = useAppSelector(state => state.sprint)
+  const {deck, idx, guessed, unguessed, words, isGameStarted} = useAppSelector(state => state.sprint)
   const [current, setCurrent] = useState<Deck>(deck[idx])
   const handleAnswer = (answer: boolean) => {
     if(answer === current.result) {
@@ -34,10 +35,19 @@ export const Game = () => {
       }, 200);
     }
     if(idx + 1 === deck.length) {
-      dispatch(startGame(false))
-      // dispatch(setResults(true))
+      stopGame()
     }
     dispatch(increaseIdx(null))
+  }
+
+  const stopGame = () => {
+    dispatch(startGame(false))
+    const arr = createResults(words, guessed, unguessed)
+    dispatch(setResults(arr))
+    dispatch(displayResults(true))
+    if(user) {
+      // sendResults(arr)
+    }
   }
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import { getRandomGroupNumber, getRandomPageNumber } from '../../utils/utils';
 import { StartButtons } from './StartButons/StartButtons';
 import wordsService from '../../services/words'
 import { getExtraWords } from './utils';
-import { ResultModal } from './ResultsModal/ResultsModal';
+import { ResultsModal } from './ResultsModal/ResultsModal';
 
 export const Sprint = () => {
 
@@ -31,7 +31,7 @@ export const Sprint = () => {
   }, [])
 
   return <div className={style.wrapper}>
-    {showResults ? <ResultModal /> : < StartButtons />}
+    {showResults ? <ResultsModal /> : < StartButtons />}
     {isGameStarted && <Game />}
   </div>
 }

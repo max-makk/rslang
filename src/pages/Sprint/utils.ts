@@ -27,10 +27,17 @@ export const getExtraAggregatedWords = async (group?: string, page?: string) => 
   const words3 = await usersAggregatedWord.getAggregatedWords(
     group || String(getRandomGroupNumber()), page || String(getRandomPageNumber())
     )
-  return [...words1[0].paginatedResults, ...words2[0].paginatedResults, ...words3[0].paginatedResults]
+  return [...words1, ...words2, ...words3]
+}
+
+export const createResults = (words: IAggregated[], guessed: String[], unguessed: String[]) => {
+  const guessedWords = words.filter(el => guessed.includes(el.id) || guessed.includes(el._id))
+  const unguessedWords = words.filter(el => unguessed.includes(el.id) || unguessed.includes(el._id))
+  return [guessedWords, unguessedWords]
 }
 
 interface IAggregated extends IWord {
+  _id: string
   userWord?: {
     difficulty: string
     optional: any

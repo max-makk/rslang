@@ -31,7 +31,7 @@ export const createSprintDeck = (arr: IWord[]) => {
   }
   for(let i of correct) {
     res.push({
-      id: i.id,
+      id: i.id || i._id,
       word: i.word,
       wordTranslate: i.wordTranslate,
       result: true
@@ -45,7 +45,7 @@ export const createSprintDeck = (arr: IWord[]) => {
       idx = k + 1
     }
     res.push({
-      id: incorrect[k].id,
+      id: incorrect[k].id || incorrect[k]._id,
       word: incorrect[k].word,
       wordTranslate: incorrect[idx].wordTranslate,
       result: false
