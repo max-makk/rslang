@@ -51,7 +51,8 @@ export const Game = () => {
     dispatch(displayResults(true))
     if(user) {
       if(useTextbook) {
-        // sendTBResults
+        // dispatch(sendTBResults(arr))
+        dispatch(sendResults(arr))
       } {
         dispatch(sendResults(arr))
       }

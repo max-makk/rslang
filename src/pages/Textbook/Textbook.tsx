@@ -11,8 +11,6 @@ import {
 import { IWord } from '../../types/types';
 import { Word } from '../../components/Word/Word';
 import { LevelList } from '../../components/LevelList/LevelList';
-import { setTextbook } from '../../state/reducers/sprint';
-import { Link } from 'react-router-dom';
 
 export const Textbook = () => {
   const dispatch = useAppDispatch()
@@ -58,11 +56,6 @@ export const Textbook = () => {
     }
   }
 
-
-  const handleSprint = () => {
-    dispatch(setTextbook(true))
-  }
-
   return (
       <div className={style.textbook}>
         <h1 className={style.textbook_header}>Учебник</h1>
@@ -88,9 +81,7 @@ export const Textbook = () => {
                     disabled={isRightDisabled}>&gt;</button>
           </div>
           <button className={`${style.textbook_button} ${style.textbook_call}`}>Аудиовызов</button>
-          <Link to='/sprint'>
-          <button onClick={() => handleSprint()} className={`${style.textbook_button} ${style.textbook_sprint}`}>Спринт</button>
-</Link>
+          <button className={`${style.textbook_button} ${style.textbook_sprint}`}>Спринт</button>
           <button className={`${style.textbook_button} ${style.textbook_hard_words}`}>Сложные слова</button>
         </div>
         <div className={style.words}>
