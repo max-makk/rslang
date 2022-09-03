@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import style from './Sprint.module.css'
-import { setGroup, setPage } from '../../state/reducers/sprint'
+import { setGroup, setPage, setTextbookGame, setUserTextbookGame } from '../../state/reducers/sprint'
 import { Game } from './Game/Game';
 import { getRandomGroupNumber, getRandomPageNumber } from '../../utils/utils';
 import { StartButtons } from './StartButons/StartButtons';
@@ -21,11 +21,11 @@ export const Sprint = () => {
   useEffect(() => {
     if(user) {
       if(useTextbook) {
-
+        dispatch(setUserTextbookGame())
       }
     } else {
       if(useTextbook) {
-
+        dispatch(setTextbookGame())
       }
     }
   }, [])

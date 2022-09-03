@@ -5,7 +5,7 @@ import userService from '../../services/user'
 
 import wordsService from '../../services/words'
 import { RootState, store } from "../store";
-import { getExtraWords, getExtraAggregatedWords } from "../../pages/Sprint/utils";
+import { getExtraWords, getExtraAggregatedWords, getWordsForTBGame, getWordsForUserTBGame } from "../../pages/Sprint/utils";
 import usersWords from "../../services/users-words";
 
 interface State {
@@ -24,7 +24,7 @@ interface State {
 
 const initialState: State = {
   isGameStarted: false,
-  useTextbook: true,
+  useTextbook: false,
   showResults: false,
   idx: 0,
   words: [],
@@ -101,6 +101,30 @@ export const setUserGame = (group?: string, page?: string) => {
   }
 }
 
+export const setTextbookGame = () => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const { textbook } = getState()
+    const group = '2'
+    const page = '0'
+    const arr = await getWordsForTBGame(group, page)
+    dispatch(initWords(arr))
+    const deck = createSprintDeck(arr)
+    dispatch(setDeck(deck))
+  }
+}
+
+export const setUserTextbookGame = () => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const { textbook } = getState()
+    const group = '2'
+    const page = '0'
+    const arr = await getWordsForUserTBGame(group, page)
+    dispatch(initWords(arr))
+    const deck = createSprintDeck(arr)
+    dispatch(setDeck(deck))
+  }
+}
+
 export const sendResults = (arr: any) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { sprint } = getState()
@@ -136,6 +160,7 @@ export const sendResults = (arr: any) => {
 }
 
 export const {
+  setTextbook,
   setResults,
   displayResults,
   addGuessed,

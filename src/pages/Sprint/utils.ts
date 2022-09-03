@@ -36,6 +36,26 @@ export const createResults = (words: IAggregated[], guessed: String[], unguessed
   return [guessedWords, unguessedWords]
 }
 
+export const getWordsForTBGame = async (group: string, page: string) => {
+  const num = Number(page)
+  const arr = []
+  for(let i = num; i >= 0; i--) {
+    const res = await wordsService.getWords(group, String(i))
+    arr.push(...res)
+  }
+  return arr
+}
+
+export const getWordsForUserTBGame = async (group: string, page: string) => {
+  const num = Number(page)
+  const arr = []
+  for(let i = num; i >= 0; i--) {
+    const res = await usersAggregatedWord.getAggregatedWords(group, String(i))
+    arr.push(...res)
+  }
+  return arr
+}
+
 interface IAggregated extends IWord {
   _id: string
   userWord?: {

@@ -16,6 +16,7 @@ interface Deck {
 
 export const Game = () => {
   const dispatch = useAppDispatch()
+  const [points, setPoints] = useState<number>(0)
   const [green, setGreen] = useState(false)
   const [red, setRed] = useState(false)
   const user = useAppSelector(state => state.user)
@@ -23,12 +24,14 @@ export const Game = () => {
   const [current, setCurrent] = useState<Deck>(deck[idx])
   const handleAnswer = (answer: boolean) => {
     if(answer === current.result) {
+      setPoints(points + 1)
       dispatch(addGuessed(current.id))
       setGreen(true)
       setTimeout(() => {
         setGreen(false)
       }, 200);
     } else {
+      setPoints(0)
       dispatch(addUnGuessed(current.id))
       setRed(true)
       setTimeout(() => {
@@ -63,14 +66,14 @@ export const Game = () => {
     <div className={style.modal}>
       <div className={style.close} onClick={() => stopGame()}><CloseIcon /></div>
       <div className={style.header}>
-        <div className={style.score}>100</div>
+        <div className={style.score}>{points}</div>
         <div className={style.timer}><Timer /></div>
       </div>
       <div className={`${style.card} ${green ? style.green : ''} ${red ? style.red : ''}`}>
         <div className={style.circles}>
-          <div className={style.circle}></div>
-          <div className={style.circle}></div>
-          <div className={style.circle}></div>
+          <div className={`${style.circle} ${points >= 1 ? style.circleActive : ''}`}></div>
+          <div className={`${style.circle} ${points >= 2 ? style.circleActive : ''}`}></div>
+          <div className={`${style.circle} ${points >= 3 ? style.circleActive : ''}`}></div>
         </div>
         <div className={style.word}>{current.word}</div>
         <div className={style.answer}>{current.wordTranslate}</div>
