@@ -35,9 +35,9 @@ export const ResultsModal = () => {
           </h2>
           <ul className={style.list}>
             {results[0] &&
-              results[0].map((el: IWord) => {
+              results[0].map((el: IWord, i: number) => {
                 return (
-                  <li key={el.id || el._id} className={style.item}>
+                  <li key={`${el.id || el._id}${i}`} className={style.item}>
                     <div onClick={() => playSound(el.audio)}>
                       <PlayCircleOutlineIcon />
                     </div>
@@ -57,9 +57,10 @@ export const ResultsModal = () => {
           </h2>
           <ul className={style.list}>
             {results[1] &&
-              results[1].map((el: IWord) => {
+              results[1].map((el: IWord, i: number) => {
+                console.log(`${el.id || el._id}${i}`)
                 return (
-                  <li key={el.id || el._id} className={style.item}>
+                  <li key={`${el.id || el._id}${i}`} className={style.item}>
                     <div onClick={() => playSound(el.audio)}>
                       <PlayCircleOutlineIcon />
                     </div>
