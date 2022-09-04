@@ -1,4 +1,4 @@
-.audiogame_wrapper{
+.audiogame_wrapper {
   width: 97vw;
   height: 76.8vh;
   display: flex;
@@ -7,24 +7,24 @@
   margin-top: 2em;
 }
 
-.audiogame_level_wrapper{
+.audiogame_level_wrapper {
   display: flex;
   flex-direction: row;
   margin-top: 2em;
 }
 
-.audiogame_level{
-   max-width: 4em;
-   box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
-   border: var(--black) solid 2px;
-   border-radius: 5em;
-   margin-left: 1em;
-   padding: 0.8em 1.5em;
-   font-size: 0.8rem;
-   line-height: 1rem;
-   background-color: rgb(235, 240, 247);
-   cursor: pointer;
-   font-weight: 600;
+.audiogame_level {
+  max-width: 10em;
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
+  border: var(--black) solid 2px;
+  border-radius: 5em;
+  margin-left: 1em;
+  padding: 0.8em 1.5em;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  background-color: rgb(235, 240, 247);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .audiogame_level:hover,
@@ -32,29 +32,29 @@
   background-color: rgba(255, 167, 95, 0.5);
 }
 
-.audiogame_gamewindow_main_wrapper{
-height: 12em;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+.audiogame_gamewindow_main_wrapper {
+  height: 12em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.audiogame_gamewindow{
-  width: 40em;
-  height: 30em;
+.audiogame_gamewindow {
+  width: 54em;
+  /* height: 30em; */
   margin-top: 2em;
   margin-bottom: 2em;
   border: var(--black) solid 2px;
   border-radius: 5em;
-  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
   background-color: rgba(255, 233, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.audiogame_gamewindow_main{
+.audiogame_gamewindow_main {
   margin-top: 2em;
   margin-bottom: 2em;
   display: flex;
@@ -62,24 +62,24 @@ justify-content: center;
   align-items: center;
 }
 
-.audiogame_gamewindow_sound{
+.audiogame_gamewindow_sound {
   width: 5em;
   height: 5em;
   border: var(--black) solid 2px;
   border-radius: 3em;
   background-repeat: no-repeat;
   background-size: contain;
-  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
   cursor: pointer;
   color: var(--level4);
 }
 
-.audiogame_gamewindow_words_string{
+.audiogame_gamewindow_words_string {
   display: flex;
   flex-direction: row;
 }
 
-.audiogame_gamewindow_word{
+.audiogame_gamewindow_word {
   margin-top: 20em;
   cursor: pointer;
   border: var(--black) solid 2px;
@@ -89,11 +89,29 @@ justify-content: center;
   margin: 1em;
 }
 
-.audiogame_gamewindow_next_btn{
+.audiogame_gamewindow_next_btn {
   width: 10em;
   border: var(--black) solid 2px;
   border-radius: 5em;
   padding: 0.7em;
   font-size: 0.9rem;
   cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.word_card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.word_card > div {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.AudioGame_word_card {
+  width: 10em;
 }
