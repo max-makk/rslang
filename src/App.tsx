@@ -32,7 +32,6 @@ const App = () => {
       <Route path='/sprint' element={<Sprint />} />
       <Route path='/statistics' element={<Statistics/>} />
     </Routes>
-    <Footer/>
   </>;
 }
 
