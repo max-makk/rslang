@@ -1,5 +1,7 @@
 body {
+  background-color: var(--white);
   font-family: 'Inter', sans-serif;
+  color: var(--black);
   padding: 1em;
   /* font-family: 'Rubik', sans-serif; */
 }
