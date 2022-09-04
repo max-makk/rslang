@@ -1,16 +1,22 @@
 import style from './Word.module.css';
-import { IWord } from "../../types/types";
+import {IWord} from "../../types/types";
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded';
-import { useState } from 'react';
-import { Button } from "../Button/Button";
+import {useEffect, useState} from 'react';
+import {Button} from "../Button/Button";
+import {useAppDispatch, useAppSelector} from "../../state/hooks";
+import {initializeHardWords, setDifficultWords, setHardWord, updateHardWord} from "../../state/reducers/textbook";
 
 export const Word = (word: IWord) => {
+
+  // const id = word.id ? word.id : word._id;
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(state => state.user)
   const [color] = useState(`var(--level${word.group + 1})`);
   const [backgroundColor] = useState(`var(--level${word.group + 1})`);
   const [colorLearned, setColorLearned] = useState(false);
   const [colorDifficult, setColorDifficult] = useState(false);
   const baseUrl = 'http://localhost:3001'
-
+  // const learned = useAppSelector(state => state.textbook.learned)
   const playAudio = () => {
     const audioWord = new Audio(`${baseUrl}/${word.audio}`)
     const audioMeaning = new Audio(`${baseUrl}/${word.audioMeaning}`)
@@ -27,12 +33,22 @@ export const Word = (word: IWord) => {
   }
   const handleLearnedWords = () => {
     setColorLearned(current => !current);
-
   }
 
-  const handleDifficultWords = () => {
-    setColorDifficult(current => !current);
+  const {words, difficult}: { words: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
+
+  const handleDifficultWords = (id: string) => {
+    const obj = {
+      difficulty: 'hard',
+      optional: {}
+    }
+    if (difficult.find(el => el.id === id || el._id === id)) {
+      dispatch(updateHardWord(id, obj))//если найдет put, нет - post
+    } else {
+      dispatch(setHardWord(id, obj))
+    }
   }
+
 
   return (
       <div className={style.word}>
@@ -58,12 +74,12 @@ export const Word = (word: IWord) => {
           </div>
         </div>
         <div className={style.buttons}>
-          <Button style={{
-            backgroundColor: colorLearned ? `var(--learned)` : '',
-          }} className={style.learned} onClick={() => handleLearnedWords()}>Изученное</Button>
-          <Button style={{
-            backgroundColor: colorDifficult ? `var(--hard)` : '',
-          }} className={style.difficult} onClick={() => handleDifficultWords()}>Сложное</Button>
+          {user && <Button style={{
+            backgroundColor: colorLearned ? `var(--learned)` : ''
+          }} className={style.learned} onClick={() => handleLearnedWords()}>Изученное</Button>}
+          {user && <Button style={{
+            // backgroundColor: word.userWord.difficulty === 'hard' ? `var(--hard)` : ''
+          }} className={style.difficult} onClick={() => handleDifficultWords(word.id)}>Сложное</Button>}
         </div>
       </div>
   )

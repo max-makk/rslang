@@ -4,6 +4,7 @@
   justify-content: flex-start;
   padding: 1em;
   gap: 1em;
+  flex: 1 1 auto;
 }
 
 .textbook_header {
@@ -27,6 +28,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 400;
+  color: var(--black);
 }
 
 .textbook_button:hover {
@@ -55,12 +57,19 @@
   border-left: none;
   border-radius: 0 2em 2em 0;
 }
+
 .textbook_game {
   background-color: var(--game);
 }
 
+.textbook_game_link {
+  /*font-size: 1rem;*/
+  text-decoration: none;
+  color: var(--black);
+}
+
 .textbook_hard_words {
-  background-color: var(--hard);
+  /*background-color: var(--hard);*/
 }
 
 .words {
@@ -68,4 +77,14 @@
   flex-direction: column;
   gap: 1em;
   align-items: center;
+  padding: 0.5em;
+}
+
+.hardWords {
+  overflow: auto;
+  height: 85vh;
+  background-color: aliceblue;
+  border-radius: 3em;
+  padding: 0.5em;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }
