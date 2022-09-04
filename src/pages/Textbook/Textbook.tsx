@@ -14,6 +14,7 @@ import {LevelList} from '../../components/LevelList/LevelList';
 import {PageList} from '../../components/PageList/PageList';
 import {Link} from "react-router-dom";
 import pageService from "./utils";
+import {setTextbook} from "../../state/reducers/sprint";
 
 export const Textbook = () => {
 
@@ -87,6 +88,10 @@ export const Textbook = () => {
     // pageService.setPage(page)
   }
 
+  const handleSprintClick = () => {
+  dispatch(setTextbook(true))
+  }
+
   return (
       <div className={style.textbook}>
         <div className={style.textbook_buttons}>
@@ -118,7 +123,7 @@ export const Textbook = () => {
           <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_call}`}>
             <Link to='/audiogame' className={style.textbook_game_link}>Аудиовызов</Link>
           </button>
-          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`}>
+          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`} onClick={() =>  handleSprintClick()}>
             <Link to='/sprint' className={style.textbook_game_link}>Спринт</Link>
           </button>
           {user &&
