@@ -17,6 +17,7 @@ interface Deck {
 export const Game = () => {
   const dispatch = useAppDispatch()
   const [points, setPoints] = useState<number>(0)
+  const [learned, setLearned] = useState<string[]>([])
   const [green, setGreen] = useState(false)
   const [red, setRed] = useState(false)
   const user = useAppSelector(state => state.user)
@@ -25,12 +26,14 @@ export const Game = () => {
   const handleAnswer = (answer: boolean) => {
     if(answer === current.result) {
       setPoints(points + 1)
-      dispatch(addGuessed(current.id))
+      setLearned(learned.concat(current.id))
+      // dispatch(addGuessed(current.id))
       setGreen(true)
       setTimeout(() => {
         setGreen(false)
       }, 200);
     } else {
+      setLearned([])
       setPoints(0)
       dispatch(addUnGuessed(current.id))
       setRed(true)
@@ -60,6 +63,15 @@ export const Game = () => {
   }
 
   useEffect(() => {
+    if(points >= 3) {
+      learned.forEach((el: string) => {
+        dispatch(addGuessed(el))
+      })
+      setLearned([])
+    }
+  },[points])
+
+  useEffect(() => {
     setCurrent(deck[idx])
   },[idx])
 
@@ -67,7 +79,7 @@ export const Game = () => {
     <div className={style.modal}>
       <div className={style.close} onClick={() => stopGame()}><CloseIcon /></div>
       <div className={style.header}>
-        <div className={style.score}>{points}</div>
+        <div className={style.score} style={{color: `${points >= 3 ? 'green' : 'red'}`}}>{points}</div>
         <div className={style.timer}><Timer /></div>
       </div>
       <div className={`${style.card} ${green ? style.green : ''} ${red ? style.red : ''}`}>

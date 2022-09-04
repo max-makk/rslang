@@ -1,13 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../../../state/hooks";
-import { displayResults } from "../../../state/reducers/sprint";
+import { displayResults, setTextbook } from "../../../state/reducers/sprint";
 import { IWord } from "../../../types/types";
 import style from "./ResultsModal.module.css";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 export const ResultsModal = () => {
   const { results } = useAppSelector((state) => state.sprint);
   const baseUrl = "http://localhost:3001";
+  const navigate = useNavigate()
 
   const dispatch = useAppDispatch()
 
@@ -18,6 +20,8 @@ export const ResultsModal = () => {
 
   const closeResult = () => {
     dispatch(displayResults(false))
+    dispatch(setTextbook(false))
+    navigate('/textbook')
   }
 
   return (
@@ -58,7 +62,6 @@ export const ResultsModal = () => {
           <ul className={style.list}>
             {results[1] &&
               results[1].map((el: IWord, i: number) => {
-                console.log(`${el.id || el._id}${i}`)
                 return (
                   <li key={`${el.id || el._id}${i}`} className={style.item}>
                     <div onClick={() => playSound(el.audio)}>

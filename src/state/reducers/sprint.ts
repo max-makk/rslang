@@ -104,8 +104,8 @@ export const setUserGame = (group?: string, page?: string) => {
 export const setTextbookGame = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { textbook } = getState()
-    const group = '2'
-    const page = '0'
+    const group = textbook.group
+    const page = '2'
     const arr = await getWordsForTBGame(group, page)
     dispatch(initWords(arr))
     const deck = createSprintDeck(arr)
@@ -116,8 +116,8 @@ export const setTextbookGame = () => {
 export const setUserTextbookGame = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { textbook } = getState()
-    const group = '2'
-    const page = '0'
+    const group = textbook.group
+    const page = '2'
     const arr = await getWordsForUserTBGame(group, page)
     dispatch(initWords(arr))
     const deck = createSprintDeck(arr)
@@ -129,7 +129,13 @@ export const sendResults = (arr: any) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { sprint } = getState()
     arr[0].forEach((el: any) => {
-      const item: any = sprint.words.find((w: any) => w._id === el._id)
+      const item: any = sprint.words.find((w: any) => {
+        if(w.id === el.id || w._id === el._id) {
+          return true
+        } else {
+          return false
+        }
+      })
       const obj = {
         difficulty: "easy",
         optional: {
@@ -137,13 +143,19 @@ export const sendResults = (arr: any) => {
         } 
       }
       if(item.userWord) {
-        usersWords.updateUserWord(item._id, obj)
+        usersWords.updateUserWord(item._id || item.id, obj)
       } else {
-        usersWords.createUserWord(item._id, obj)
+        usersWords.createUserWord(item._id || item.id, obj)
       }
     })
     arr[1].forEach((el: any) => {
-      const item: any = sprint.words.find((w: any) => w._id === el._id)
+      const item: any = sprint.words.find((w: any) => {
+        if(w.id === el.id || w._id === el._id) {
+          return true
+        } else {
+          return false
+        }
+      })
       const obj = {
         difficulty: "hard",
         optional: {
@@ -151,11 +163,12 @@ export const sendResults = (arr: any) => {
         } 
       }
       if(item.userWord) {
-        usersWords.updateUserWord(item._id, obj)
+        usersWords.updateUserWord(item._id || item.id, {...obj, difficulty: item.userWord.difficulty})
       } else {
-        usersWords.createUserWord(item._id, obj)
+        usersWords.createUserWord(item._id || item.id, obj)
       }
     })
+
   }
 }
 
