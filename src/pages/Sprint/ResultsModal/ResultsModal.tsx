@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 
 export const ResultsModal = () => {
-  const { results } = useAppSelector((state) => state.sprint);
+  const { results, useTextbook } = useAppSelector((state) => state.sprint);
   const baseUrl = "http://localhost:3001";
   const navigate = useNavigate()
 
@@ -20,8 +20,10 @@ export const ResultsModal = () => {
 
   const closeResult = () => {
     dispatch(displayResults(false))
+    if(useTextbook) {
+      navigate('/textbook')
+    }
     dispatch(setTextbook(false))
-    navigate('/textbook')
   }
 
   return (
