@@ -1,0 +1,23 @@
+.button {
+  background: rgb(235, 240, 247);
+  cursor: pointer;
+  border-radius: 2em;
+  padding: 0.5em;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  width: 8em;
+  height: 3em;
+}
+
+.button:hover {
+  box-shadow: none;
+}
+
+@media (max-width: 558px) {
+  .button {
+    font-size: 12px;
+  }
+}

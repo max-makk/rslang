@@ -1,0 +1,14 @@
+.page_list {
+  display: flex;
+  flex-direction: column;
+  width: 9em;
+  padding: 0.5em;
+  gap: 0.3em;
+  height: 70vh;
+  overflow: auto;
+  font-size: 0.8em;
+}
+
+.page_item {
+  cursor: pointer;
+}
