@@ -16,7 +16,13 @@ export const Word = (word: IWord) => {
   const [colorLearned, setColorLearned] = useState(false);
   const [colorDifficult, setColorDifficult] = useState(false);
   const baseUrl = 'http://localhost:3001'
+  const {words, difficult}: { words: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
   // const learned = useAppSelector(state => state.textbook.learned)
+
+  useEffect(() => {
+    dispatch(initializeHardWords())
+  },[])
+
   const playAudio = () => {
     const audioWord = new Audio(`${baseUrl}/${word.audio}`)
     const audioMeaning = new Audio(`${baseUrl}/${word.audioMeaning}`)
@@ -34,8 +40,6 @@ export const Word = (word: IWord) => {
   const handleLearnedWords = () => {
     setColorLearned(current => !current);
   }
-
-  const {words, difficult}: { words: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
 
   const handleDifficultWords = (id: string) => {
     const obj = {
