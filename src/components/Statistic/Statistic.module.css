@@ -1,0 +1,75 @@
+.statistic {
+  position: absolute;
+  background-color: white;
+  width: 25em;
+  height: 34em;
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
+  border: var(--black) solid 2px;
+  border-radius: 5em;
+  display: flex;
+  flex-direction: column;
+  padding: 3em;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  font-size: 0.8rem;
+}
+.statistic::-webkit-scrollbar {
+  width: 0;
+}
+
+.false {
+  color: red;
+  font-weight: 600;
+  padding-bottom: 0.3em;
+}
+
+.true {
+  color: green;
+  font-weight: 600;
+  padding-bottom: 0.6em;
+  padding-top: 1em;
+}
+.audio {
+  cursor: pointer;
+  color: var(--level4);
+  padding-top: 0.2em;
+  margin-top: 0.2em;
+}
+
+.audio_btn {
+  padding-top: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.statistics_words li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.close_btn {
+  position: absolute;
+  top: 1em;
+  right: 1.6em;
+  width: 5em;
+  border: none;
+  background-color: transparent;
+}
+.close_btn:hover{
+cursor: pointer;
+}
+/* 
+.nextlevel_btn {
+  border: var(--black) solid 2px;
+  border-radius: 5em;
+  padding: 0.4em;
+  margin-top: 0.5em;
+}
+
+.nextlevel_btn:hover,
+.nextlevel_btn:focus {
+  background-color: rgba(255, 167, 95, 0.5);
+  cursor: pointer;
+}
+ */

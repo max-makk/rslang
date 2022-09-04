@@ -2,17 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IWord } from '../../types/types';
 
 interface AudioGameState {
-  words: IWord[],
-  page: number,
-  group: number,
-  unlearnedIds: string[],
+  words: IWord[];
+  page: number;
+  group: number;
+  unlearnedIds: string[];
+  passedGrops: Record<string | number, number[]>;
 }
 
-const initialState : AudioGameState = {
+const initialState: AudioGameState = {
   words: [],
   page: 0,
   group: 0,
   unlearnedIds: [],
+  passedGrops: {},
 };
 
 const audioGameSlice = createSlice({
@@ -28,11 +30,24 @@ const audioGameSlice = createSlice({
     setWords(state, { payload }) {
       state.words = payload;
     },
-    seUnlearnedtWordIds(state, { payload }) {
+    setUnlearnedtWordIds(state, { payload }) {
       state.unlearnedIds = [...state.unlearnedIds, payload];
     },
+    resetsetUnlearnedtWordIds(state, { payload }) {
+      state.unlearnedIds = payload;
+    },
+    setPassedGroup(state, { payload }) {
+      state.passedGrops = { ...state.passedGrops, ...payload };
+    }
   },
 });
 
-export const { setGroup, setPage, setWords, seUnlearnedtWordIds } = audioGameSlice.actions;
+export const {
+  setGroup,
+  setPage,
+  setWords,
+  setUnlearnedtWordIds,
+  setPassedGroup,
+  resetsetUnlearnedtWordIds,
+} = audioGameSlice.actions;
 export default audioGameSlice.reducer;

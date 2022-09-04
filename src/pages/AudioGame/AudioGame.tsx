@@ -5,7 +5,9 @@ import {
   setGroup,
   setPage,
   setWords,
-  seUnlearnedtWordIds,
+  setUnlearnedtWordIds,
+  setPassedGroup,
+  resetsetUnlearnedtWordIds,
 } from '../../state/reducers/audiogame';
 import srv from '../../services/words';
 import { useEffect, useMemo, useState } from 'react';
@@ -14,6 +16,7 @@ import { getRandomGroupElementInArray, shuffle } from '../../helpers/array';
 import { Word } from '../../components/Word/Word';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Statistic } from '../../components/Statistic/Statistic';
+import { dividerClasses } from '@mui/material';
 
 enum englishLevel {
   Уровень1,
@@ -24,9 +27,20 @@ enum englishLevel {
   Уровень6,
 }
 
+const successColor = 'green';
+const failColor = 'red';
+
 export const AudioGame = () => {
   const dispatch = useAppDispatch();
   const words: IWord[] = useAppSelector((state) => state.audiogame.words);
+  const passed: Record<string, number[]> = useAppSelector(
+    (state) => state.audiogame.passedGrops
+  );
+  const currentGroup: number = useAppSelector((state) => state.audiogame.group);
+  const currentPage: number = useAppSelector((state) => state.audiogame.page);
+  const unLearnedWorIds: Set<string> = new Set(
+    useAppSelector((state) => state.audiogame.unlearnedIds)
+  );
   const baseUrl = 'http://localhost:3001';
 
   const [wordIndex, setWordIndex] = useState(0);
@@ -68,9 +82,18 @@ export const AudioGame = () => {
   ) => {
     const group = e.currentTarget.dataset['group'];
     if (group) {
-      const words = await srv.getWords(group, 0);
+      let page = 0;
+
+      while (passed[group] && page < 30) {
+        if (!~passed[group].indexOf(page)) {
+          break;
+        }
+        page++;
+      }
+
+      const words = await srv.getWords(group, page);
       dispatch(setGroup(group));
-      dispatch(setPage(0));
+      dispatch(setPage(page));
       dispatch(setWords(shuffle(words)));
     }
   };
@@ -81,10 +104,10 @@ export const AudioGame = () => {
     if (translate) {
       playAudio();
       if (translate === word?.wordTranslate) {
-        e.currentTarget.style.backgroundColor = 'green';
+        e.currentTarget.style.backgroundColor = successColor;
       } else {
-        e.currentTarget.style.backgroundColor = 'red';
-        dispatch(seUnlearnedtWordIds(word?.id));
+        e.currentTarget.style.backgroundColor = failColor;
+        dispatch(setUnlearnedtWordIds(word?.id));
       }
     }
   };
@@ -95,8 +118,29 @@ export const AudioGame = () => {
       setIsAnswerGiven(false);
     } else {
       playAudio();
+      dispatch(setUnlearnedtWordIds(word?.id));
       setIsAnswerGiven(true);
     }
+  };
+
+  const onStatisticClose = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setWordIndex(0);
+    const payLoad = {} as Record<number, number[]>;
+    payLoad[currentGroup] = [...(passed[currentGroup] ?? []), currentPage];
+    dispatch(setPassedGroup(payLoad));
+    dispatch(setWords([]));
+    dispatch(resetsetUnlearnedtWordIds([]));
+  };
+
+  const getLearnedWords = () => {
+    return words.filter((w) => !unLearnedWorIds.has(w.id));
+  };
+
+  const getUnLearnedWords = () => {
+    return words.filter((w) => unLearnedWorIds.has(w.id));
   };
 
   return (
@@ -115,9 +159,13 @@ export const AudioGame = () => {
             </button>
           ))}
       </div>
-      {words?.length &&
+      {!!words?.length &&
         (wordIndex >= words.length ? (
-          <Statistic />
+          <Statistic
+            learnedWords={getLearnedWords()}
+            unlearnedWords={getUnLearnedWords()}
+            onClose={onStatisticClose}
+          />
         ) : (
           <div className={style.audiogame_gamewindow}>
             {isAnswerGiven && word ? (
@@ -160,7 +208,7 @@ export const AudioGame = () => {
                   style={{
                     background:
                       isAnswerGiven && translate === word?.wordTranslate
-                        ? 'green'
+                        ? successColor
                         : 'white',
                   }}
                   data-translate={translate}

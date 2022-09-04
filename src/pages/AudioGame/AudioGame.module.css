@@ -1,6 +1,6 @@
 .audiogame_wrapper {
   width: 97vw;
-  height: 76.8vh;
+  min-height: 76.8vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,12 +81,13 @@
 
 .audiogame_gamewindow_word {
   margin-top: 20em;
+  width: 10em;
   cursor: pointer;
   border: var(--black) solid 2px;
   border-radius: 5em;
   padding: 0.6em;
   font-size: 0.8rem;
-  margin: 1em;
+  margin: 0.8em;
 }
 
 .audiogame_gamewindow_next_btn {
@@ -94,9 +95,10 @@
   border: var(--black) solid 2px;
   border-radius: 5em;
   padding: 0.7em;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .word_card {
