@@ -6,7 +6,7 @@ import {Button} from "../Button/Button";
 import {useAppDispatch, useAppSelector} from "../../state/hooks";
 import {initializeHardWords, setDifficultWords, setHardWord, updateHardWord} from "../../state/reducers/textbook";
 
-export const Word = (word: IWord) => {
+export const Word = (word: any) => {
 
   // const id = word.id ? word.id : word._id;
   const dispatch = useAppDispatch()
@@ -82,7 +82,7 @@ export const Word = (word: IWord) => {
             backgroundColor: colorLearned ? `var(--learned)` : ''
           }} className={style.learned} onClick={() => handleLearnedWords()}>Изученное</Button>}
           {user && <Button style={{
-            // backgroundColor: word.userWord.difficulty === 'hard' ? `var(--hard)` : ''
+            backgroundColor: word.diff === 'hard' ? `var(--hard)` : ''
           }} className={style.difficult} onClick={() => handleDifficultWords(word.id)}>Сложное</Button>}
         </div>
       </div>

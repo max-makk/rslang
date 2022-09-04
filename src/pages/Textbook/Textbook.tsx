@@ -13,7 +13,7 @@ import {Word} from '../../components/Word/Word';
 import {LevelList} from '../../components/LevelList/LevelList';
 import {PageList} from '../../components/PageList/PageList';
 import {Link} from "react-router-dom";
-import pageService from "./utils";
+// import pageService from "./utils";
 import {setTextbook} from "../../state/reducers/sprint";
 
 export const Textbook = () => {
@@ -141,6 +141,7 @@ export const Textbook = () => {
                     textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription}
                     wordTranslate={word.wordTranslate} textMeaningTranslate={word.textMeaningTranslate}
                     textExampleTranslate={word.textExampleTranslate}
+                    diff={word.userWord.difficulty}
               />
           )}
         </div>}
