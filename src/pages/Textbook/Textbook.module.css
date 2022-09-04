@@ -3,6 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 1em;
+  gap: 1em;
+  flex: 1 1 auto;
 }
 
 .textbook_header {
@@ -18,7 +20,6 @@
 }
 
 .textbook_button {
-  background: var(--white);
   cursor: pointer;
   border: 2px solid var(--black);
   border-radius: 2em;
@@ -27,10 +28,20 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 400;
+  color: var(--black);
+}
+
+.textbook_button:hover {
+  box-shadow: none;
+  background: var(--white);
 }
 
 .textbook_choose {
   position: relative;
+}
+
+.page_button {
+  background: var(--page);
 }
 
 .textbook_page {
@@ -47,10 +58,33 @@
   border-radius: 0 2em 2em 0;
 }
 
+.textbook_game {
+  background-color: var(--game);
+}
+
+.textbook_game_link {
+  /*font-size: 1rem;*/
+  text-decoration: none;
+  color: var(--black);
+}
+
+.textbook_hard_words {
+  /*background-color: var(--hard);*/
+}
+
 .words {
   display: flex;
   flex-direction: column;
   gap: 1em;
   align-items: center;
-  padding: 1.5em 0;
+  padding: 0.5em;
+}
+
+.hardWords {
+  overflow: auto;
+  height: 85vh;
+  background-color: aliceblue;
+  border-radius: 3em;
+  padding: 0.5em;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }

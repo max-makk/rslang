@@ -1,90 +1,151 @@
 import style from './Textbook.module.css'
-import { useEffect, useState } from 'react';
-import { Modal } from '../../components/Modal/Modal';
-import { useAppDispatch, useAppSelector } from '../../state/hooks';
+import {useEffect, useState} from 'react';
+import {Modal} from '../../components/Modal/Modal';
+import {useAppDispatch, useAppSelector} from '../../state/hooks';
 import {
   initializeAggregatedWords,
   initializeHardWords,
   initializeWords,
-  setPage
+  setPage, setTextbookMode
 } from '../../state/reducers/textbook';
-import { IWord } from '../../types/types';
-import { Word } from '../../components/Word/Word';
-import { LevelList } from '../../components/LevelList/LevelList';
+import {IWord} from '../../types/types';
+import {Word} from '../../components/Word/Word';
+import {LevelList} from '../../components/LevelList/LevelList';
+import {PageList} from '../../components/PageList/PageList';
+import {Link} from "react-router-dom";
+// import pageService from "./utils";
+import {setTextbook} from "../../state/reducers/sprint";
 
 export const Textbook = () => {
+
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.user)
   const group = useAppSelector(state => state.textbook.group)
   const page = useAppSelector(state => state.textbook.page);
   const {words, difficult}: { words: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
-  const [modal, setModal] = useState(false);
+  // console.log(difficult)
+  const [modalLevel, setModalLevel] = useState(false);
+  const [modalPage, setModalPage] = useState(false);
   const [isRightDisabled, setRightDisabled] = useState(false);
   const [isLeftDisabled, setLeftDisabled] = useState(false);
   const pageNumber = parseInt(page);
+  const [backgroundColor, setBackgroundColor] = useState(`var(--level${+group + 1})`);
+  const [difficultWords, setDifficultWords] = useState(false);
+
+  const mode = useAppSelector(state => state.textbook.mode);
+
+  // console.log(words)
+  const disableUnableClicks = () => {
+    if (pageNumber === 29) {
+      setRightDisabled(true)
+      setLeftDisabled(false)
+    } else if (pageNumber === 0) {
+      setLeftDisabled(true)
+      setRightDisabled(false)
+    } else if (pageNumber != 0 && isLeftDisabled) {
+      setLeftDisabled(false)
+    } else if (pageNumber != 29 && isRightDisabled) {
+      setRightDisabled(false)
+    }
+  }
+
+  const diff = () => {
+    setDifficultWords(current => !current)
+    if (difficultWords) {
+      dispatch(setTextbookMode('words'))
+    } else {
+      dispatch(setTextbookMode('hard'))
+    }
+  }
 
   useEffect(() => {
     if (user) {
-      dispatch(initializeAggregatedWords(group, page))
-      dispatch(initializeHardWords())
+      if (difficultWords) {
+        dispatch(initializeHardWords())
+      } else {
+        dispatch(initializeWords(group, page))
+      }
+      // dispatch(initializeAggregatedWords(group, page))
+      // dispatch(initializeHardWords())
     } else {
       dispatch(initializeWords(group, page))
-      setModal(false)
     }
-  }, [group, page])
+    // dispatch(setPage(pageService.getPage()));
+    setModalLevel(false)
+    setModalPage(false)
+    setBackgroundColor(`var(--level${+group + 1})`)
+    disableUnableClicks();
+  }, [group, page, mode])
 
   const HandleRightClick = () => {
-    if (pageNumber === 29) {
-      setRightDisabled(true)
-    } else {
-      if (pageNumber === 0 && isLeftDisabled) {
-        setLeftDisabled(false)
-      }
-      const nextPage = pageNumber + 1;
-      dispatch(setPage(nextPage))
-    }
+    const nextPage = pageNumber + 1;
+    dispatch(setPage(nextPage))
+    // pageService.setPage(page)
   }
   const HandleLeftClick = () => {
-    if (pageNumber === 0) {
-      setLeftDisabled(true)
-    } else {
-      if (pageNumber === 29 && isRightDisabled) {
-        setRightDisabled(false)
-      }
-      const prevPage = pageNumber - 1;
-      dispatch(setPage(prevPage))
-    }
+    const prevPage = pageNumber - 1;
+    dispatch(setPage(prevPage))
+    // pageService.setPage(page)
+  }
+
+  const handleSprintClick = () => {
+  dispatch(setTextbook(true))
   }
 
   return (
       <div className={style.textbook}>
-        <h1 className={style.textbook_header}>Учебник</h1>
         <div className={style.textbook_buttons}>
+          {mode === 'words' && <div className={style.textbook_choose}>
+
+            <button className={`${style.textbook_button} ${style.textbook_arrow_left} ${style.page_button}`}
+                    onClick={HandleLeftClick}
+                    disabled={isLeftDisabled}>&lt;</button>
+            <button className={`${style.textbook_button} ${style.textbook_page} ${style.page_button}`}
+                    onClick={() => setModalPage(true)}>Страница {pageNumber + 1}</button>
+            <button className={`${style.textbook_button} ${style.textbook_arrow_right} ${style.page_button}`}
+                    onClick={HandleRightClick}
+                    disabled={isRightDisabled}>&gt;</button>
+            {modalPage && <Modal open={modalPage} onClose={() => setModalPage(false)}>
+              <PageList/>
+            </Modal>}
+          </div>}
           <div className={style.textbook_choose}>
             <button className={`${style.textbook_button} ${style.textbook_level}`}
-                    onClick={() => setModal(true)}
+                    onClick={() => setModalLevel(true)}
+                    style={{backgroundColor}}
             >
               Уровень {+group + 1}
             </button>
-            {modal && <Modal open={modal} onClose={() => setModal(false)}>
+            {modalLevel && <Modal open={modalLevel} onClose={() => setModalLevel(false)}>
               <LevelList/>
             </Modal>}
           </div>
-          <div className={style.textbook_pages}>
-            <button className={`${style.textbook_button} ${style.textbook_arrow_left}`}
-                    onClick={HandleLeftClick}
-                    disabled={isLeftDisabled}>&lt;</button>
-
-            <button className={`${style.textbook_button} ${style.textbook_page}`}>Страница {pageNumber + 1}</button>
-            <button className={`${style.textbook_button} ${style.textbook_arrow_right}`}
-                    onClick={HandleRightClick}
-                    disabled={isRightDisabled}>&gt;</button>
-          </div>
-          <button className={`${style.textbook_button} ${style.textbook_call}`}>Аудиовызов</button>
-          <button className={`${style.textbook_button} ${style.textbook_sprint}`}>Спринт</button>
-          <button className={`${style.textbook_button} ${style.textbook_hard_words}`}>Сложные слова</button>
+          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_call}`}>
+            <Link to='/audiogame' className={style.textbook_game_link}>Аудиовызов</Link>
+          </button>
+          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`} onClick={() =>  handleSprintClick()}>
+            <Link to='/sprint' className={style.textbook_game_link}>Спринт</Link>
+          </button>
+          {user &&
+              <button className={`${style.textbook_button} ${style.textbook_hard_words}`} onClick={() => diff()}
+                      style={{
+                        backgroundColor: difficultWords ? `var(--hard)` : '',
+                      }}>Сложные слова
+              </button>}
         </div>
-        <div className={style.words}>
+        {difficult.length === 0 && mode === 'hard' && <div style={{textAlign: "center"}}>Нет сложных слов</div>}
+        {mode === 'hard' && <div className={`${style.words} ${style.hardWords}`}>
+          {difficult.map((word) =>
+              <Word key={word._id} id={word._id as string} group={word.group} page={word.page} word={word.word} image={word.image}
+                    audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample}
+                    textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription}
+                    wordTranslate={word.wordTranslate} textMeaningTranslate={word.textMeaningTranslate}
+                    textExampleTranslate={word.textExampleTranslate}
+                    diff={word.userWord.difficulty}
+              />
+          )}
+        </div>}
+        {mode === 'words' && <div className={style.words}>
           {words.map((word) =>
               <Word key={word.id} id={word.id} group={word.group} page={word.page} word={word.word} image={word.image}
                     audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample}
@@ -93,7 +154,7 @@ export const Textbook = () => {
                     textExampleTranslate={word.textExampleTranslate}
               />
           )}
-        </div>
+        </div>}
       </div>
   )
 }
