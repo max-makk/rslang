@@ -3,7 +3,7 @@ import style from './Statistic.module.css';
 import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded';
 import CloseIcon from '@mui/icons-material/Close';
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'https://learnwords-backend.herokuapp.com';
 const playAudio = (audioPath: string) => {
   if (audioPath) {
     const audioTrack = new Audio(`${baseUrl}/${audioPath}`);

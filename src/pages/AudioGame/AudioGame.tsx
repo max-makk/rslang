@@ -29,7 +29,7 @@ enum englishLevel {
 
 const successColor = 'green';
 const failColor = 'red';
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'https://learnwords-backend.herokuapp.com';
 
 export interface AudioGameProps {}
 
