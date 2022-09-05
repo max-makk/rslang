@@ -6,7 +6,6 @@ import { Button } from '../Button/Button';
 import { useAppDispatch, useAppSelector} from '../../state/hooks';
 import {
   deleteHardWord, deleteLearnedWord, initializeAggregatedWords,
-  initializeHardWords, initializeLearnedWords,
   setHardWord, setLearnedWord,
 } from '../../state/reducers/textbook';
 
@@ -23,10 +22,7 @@ export const Word = (word: IWord) => {
   const page = useAppSelector(state => state.textbook.page);
 
   useEffect(() => {
-    dispatch(initializeHardWords())
-    dispatch(initializeLearnedWords())
-    handleColorDif()
-    handleColorLearn()
+    setColor()
   }, [])
 
   const playAudio = () => {
@@ -47,7 +43,6 @@ export const Word = (word: IWord) => {
     setColorDifficult(false)
     setColorLearned(current => !current);
     const obj = {
-      // difficulty: '',
       optional: {learned: true}
     }
 
@@ -60,7 +55,7 @@ export const Word = (word: IWord) => {
     } else {
       dispatch(setLearnedWord(id, obj))
     }
-    dispatch(initializeAggregatedWords(group, page))
+    if (user) dispatch(initializeAggregatedWords(group, page))
   }
 
   const handleDifficultWords = (id: string) => {
@@ -68,7 +63,6 @@ export const Word = (word: IWord) => {
     setColorDifficult(current => !current);
     const obj = {
       difficulty: 'hard',
-      // optional: {}
     }
     if (learned.find(el => el.id === id || el._id === id)) {
       dispatch(deleteLearnedWord(id))
@@ -78,15 +72,16 @@ export const Word = (word: IWord) => {
     } else {
       dispatch(setHardWord(id, obj))
     }
-    dispatch(initializeAggregatedWords(group, page))
+    if (user) dispatch(initializeAggregatedWords(group, page))
   }
 
-  const handleColorDif = () => {
-    return (difficult.find(el => el.id === word.id || el._id === word.id)) ? setColorDifficult(true) : setColorDifficult(false)
-  }
-
-  const handleColorLearn = () => {
-    (learned.find(el => el.id === word.id || el._id === word.id)) ? setColorLearned(true) : setColorLearned(false)
+  const setColor = () => {
+    if (word.userWord?.difficulty) {
+      return word.userWord.difficulty === 'hard' ? setColorDifficult(true) : setColorDifficult(false)
+    }
+    if (word.userWord?.optional) {
+      return word.userWord.optional.learned ? setColorLearned(true) : setColorLearned(false)
+    }
   }
 
   return (

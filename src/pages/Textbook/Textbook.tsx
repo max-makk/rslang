@@ -12,12 +12,10 @@ import { IWord } from '../../types/types';
 import { Word } from '../../components/Word/Word';
 import {LevelList } from '../../components/LevelList/LevelList';
 import { PageList } from '../../components/PageList/PageList';
-import { Link } from "react-router-dom";
-// import pageService from "./utils";
+import { Link } from 'react-router-dom';
 import {setTextbook} from '../../state/reducers/sprint';
 
 export const Textbook = () => {
-
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.user)
   const group = useAppSelector(state => state.textbook.group)
@@ -45,7 +43,6 @@ export const Textbook = () => {
       setRightDisabled(false)
     }
   }
-  // console.log(difficultWords)
   const diff = () => {
     setDifficultWords(current => !current)
     if (difficultWords) {
@@ -58,16 +55,12 @@ export const Textbook = () => {
   useEffect(() => {
     if (user) {
       mode === 'words' ? setDifficultWords(false) : setDifficultWords(true);
-      if (difficultWords) {
-        dispatch(initializeHardWords())
-      } else {
-        dispatch(initializeAggregatedWords(group, page))
-      }
+      dispatch(initializeHardWords())
+      dispatch(initializeLearnedWords())
+      dispatch(initializeAggregatedWords(group, page))
     } else {
       dispatch(initializeWords(group, page))
     }
-
-    // dispatch(setPage(pageService.getPage()));
     setModalLevel(false)
     setModalPage(false)
     setBackgroundColor(`var(--level${+group + 1})`)
@@ -77,12 +70,10 @@ export const Textbook = () => {
   const HandleRightClick = () => {
     const nextPage = pageNumber + 1;
     dispatch(setPage(nextPage))
-    // pageService.setPage(page)
   }
   const HandleLeftClick = () => {
     const prevPage = pageNumber - 1;
     dispatch(setPage(prevPage))
-    // pageService.setPage(page)
   }
 
   const handleSprintClick = () => {
