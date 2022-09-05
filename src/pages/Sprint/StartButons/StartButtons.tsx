@@ -17,7 +17,9 @@ export const StartButtons = () => {
   }
 
   const handleGameClick = () => {
-    dispatch(startGame(true))
+    setTimeout(() => {
+      dispatch(startGame(true))
+    }, 3000)
   }
 
   return (
