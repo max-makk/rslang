@@ -105,7 +105,7 @@ export const setTextbookGame = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { textbook } = getState()
     const group = textbook.group
-    const page = '2'
+    const page = textbook.page
     const arr = await getWordsForTBGame(group, page)
     dispatch(initWords(arr))
     const deck = createSprintDeck(arr)
@@ -117,7 +117,7 @@ export const setUserTextbookGame = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { textbook } = getState()
     const group = textbook.group
-    const page = '2'
+    const page = textbook.page
     const arr = await getWordsForUserTBGame(group, page)
     dispatch(initWords(arr))
     const deck = createSprintDeck(arr)
@@ -127,45 +127,30 @@ export const setUserTextbookGame = () => {
 
 export const sendResults = (arr: any) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { sprint } = getState()
     arr[0].forEach((el: any) => {
-      const item: any = sprint.words.find((w: any) => {
-        if(w.id === el.id || w._id === el._id) {
-          return true
-        } else {
-          return false
-        }
-      })
       const obj = {
         difficulty: "easy",
         optional: {
           learned: true
         } 
       }
-      if(item.userWord) {
-        usersWords.updateUserWord(item._id || item.id, obj)
+      if(el.userWord) {
+        usersWords.updateUserWord(el._id || el.id, obj)
       } else {
-        usersWords.createUserWord(item._id || item.id, obj)
+        usersWords.createUserWord(el._id || el.id, obj)
       }
     })
     arr[1].forEach((el: any) => {
-      const item: any = sprint.words.find((w: any) => {
-        if(w.id === el.id || w._id === el._id) {
-          return true
-        } else {
-          return false
-        }
-      })
       const obj = {
         difficulty: "hard",
         optional: {
           learned: false
         } 
       }
-      if(item.userWord) {
-        usersWords.updateUserWord(item._id || item.id, {...obj, difficulty: item.userWord.difficulty})
+      if(el.userWord) {
+        usersWords.updateUserWord(el._id || el.id, {...obj, difficulty: el.userWord.difficulty})
       } else {
-        usersWords.createUserWord(item._id || item.id, obj)
+        usersWords.createUserWord(el._id || el.id, obj)
       }
     })
 
