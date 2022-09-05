@@ -29,6 +29,9 @@ enum englishLevel {
 
 const successColor = 'green';
 const failColor = 'red';
+const baseUrl = 'http://localhost:3001';
+
+export interface AudioGameProps {}
 
 export const AudioGame = () => {
   const dispatch = useAppDispatch();
@@ -41,20 +44,41 @@ export const AudioGame = () => {
   const unLearnedWorIds: Set<string> = new Set(
     useAppSelector((state) => state.audiogame.unlearnedIds)
   );
-  const baseUrl = 'http://localhost:3001';
 
   const [wordIndex, setWordIndex] = useState(0);
   const [isAnswerGiven, setIsAnswerGiven] = useState(false);
   const word = words.length ? words[wordIndex] : undefined;
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const group = parseInt(queryParams.get('group') ?? '-1');
+  const page = parseInt(queryParams.get('page') ?? '-1');
+
   const playAudio = () => {
     if (word) {
       const audioTrack = new Audio(`${baseUrl}/${word?.audio}`);
-      audioTrack.play();
+      Promise.all([audioTrack.play()]);
     }
   };
 
   useEffect(() => {
-    playAudio();
+    dispatch(setGroup(group));
+    dispatch(setPage(page));
+
+    if (group >= 0 && page >= 0) {
+      srv.getWords(group, page).then((words) => {
+        dispatch(setWords(shuffle(words)));
+      });
+    }
+    return () => {
+      dispatch(setWords([]));
+      dispatch(resetsetUnlearnedtWordIds([]));
+    };
+  }, [dispatch, group, page]);
+
+  useEffect(() => {
+    if (word?.audio) {
+      playAudio();
+    }
   }, [word?.audio]);
 
   const translates = useMemo(
@@ -145,20 +169,25 @@ export const AudioGame = () => {
 
   return (
     <div className={style.audiogame_wrapper}>
-      Выберите уровень:
-      <div className={style.audiogame_level_wrapper}>
-        {Object.keys(englishLevel)
-          .filter((value) => isNaN(Number(value)) === true)
-          .map((level) => (
-            <button
-              className={style.audiogame_level}
-              data-group={Object.values(englishLevel).indexOf(level)}
-              onClick={difficultySelectionHandler}
-            >
-              {level}
-            </button>
-          ))}
-      </div>
+      {!words?.length && (
+        <>
+          Выберите уровень:
+          <div className={style.audiogame_level_wrapper}>
+            {Object.keys(englishLevel)
+              .filter((value) => isNaN(Number(value)) === true)
+              .map((level) => (
+                <button
+                  className={style.audiogame_level}
+                  key={level}
+                  data-group={Object.values(englishLevel).indexOf(level)}
+                  onClick={difficultySelectionHandler}
+                >
+                  {level}
+                </button>
+              ))}
+          </div>
+        </>
+      )}
       {!!words?.length &&
         (wordIndex >= words.length ? (
           <Statistic
@@ -220,6 +249,7 @@ export const AudioGame = () => {
             </div>
             <button
               className={style.audiogame_gamewindow_next_btn}
+              style={{ padding: isAnswerGiven ? 0 : '0.7em' }}
               onClick={nextItemHandle}
             >
               {isAnswerGiven ? <ArrowRightAltIcon /> : 'не знаю'}
