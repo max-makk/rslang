@@ -25,7 +25,8 @@ export const Word = (word: IWord) => {
   useEffect(() => {
     dispatch(initializeHardWords())
     dispatch(initializeLearnedWords())
-    setColor()
+    handleColorDif()
+    handleColorLearn()
   }, [])
 
   const playAudio = () => {
@@ -80,13 +81,12 @@ export const Word = (word: IWord) => {
     dispatch(initializeAggregatedWords(group, page))
   }
 
-  const setColor = () => {
-    if (word.userWord?.difficulty) {
-      return word.userWord.difficulty === 'hard' ? setColorDifficult(true) : setColorDifficult(false)
-    }
-    if (word.userWord?.optional) {
-      return word.userWord.optional.learned ? setColorLearned(true) : setColorLearned(false)
-    }
+  const handleColorDif = () => {
+    return (difficult.find(el => el.id === word.id || el._id === word.id)) ? setColorDifficult(true) : setColorDifficult(false)
+  }
+
+  const handleColorLearn = () => {
+    (learned.find(el => el.id === word.id || el._id === word.id)) ? setColorLearned(true) : setColorLearned(false)
   }
 
   return (
