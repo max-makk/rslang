@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ResultsModal = () => {
   const { results, useTextbook } = useAppSelector((state) => state.sprint);
-  const baseUrl = "http://localhost:3001";
+  const baseUrl = 'https://learnwords-backend.herokuapp.com'
   const navigate = useNavigate()
 
   const dispatch = useAppDispatch()

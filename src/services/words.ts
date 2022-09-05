@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = 'http://localhost:3001'
+const baseUrl = 'https://learnwords-backend.herokuapp.com'
 
 const getWords = (group: string | number, page: string | number) => {
   const request = axios.get(`${baseUrl}/words?group=${group}&page=${page}`)
