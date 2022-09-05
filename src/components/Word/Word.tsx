@@ -6,7 +6,6 @@ import { Button } from '../Button/Button';
 import { useAppDispatch, useAppSelector} from '../../state/hooks';
 import {
   deleteHardWord, deleteLearnedWord, initializeAggregatedWords,
-  initializeHardWords, initializeLearnedWords,
   setHardWord, setLearnedWord,
 } from '../../state/reducers/textbook';
 
@@ -17,14 +16,12 @@ export const Word = (word: IWord) => {
   const [backgroundColor] = useState(`var(--level${word.group + 1})`);
   const [colorLearned, setColorLearned] = useState(false);
   const [colorDifficult, setColorDifficult] = useState(false);
-  const baseUrl = 'http://localhost:3001'
+  const baseUrl = 'https://learnwords-backend.herokuapp.com'
   const { learned, difficult }: { learned: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
   const group = useAppSelector(state => state.textbook.group)
   const page = useAppSelector(state => state.textbook.page);
 
   useEffect(() => {
-    dispatch(initializeHardWords())
-    dispatch(initializeLearnedWords())
     setColor()
   }, [])
 
@@ -46,7 +43,6 @@ export const Word = (word: IWord) => {
     setColorDifficult(false)
     setColorLearned(current => !current);
     const obj = {
-      // difficulty: '',
       optional: {learned: true}
     }
 
@@ -59,7 +55,7 @@ export const Word = (word: IWord) => {
     } else {
       dispatch(setLearnedWord(id, obj))
     }
-    dispatch(initializeAggregatedWords(group, page))
+    if (user) dispatch(initializeAggregatedWords(group, page))
   }
 
   const handleDifficultWords = (id: string) => {
@@ -67,7 +63,6 @@ export const Word = (word: IWord) => {
     setColorDifficult(current => !current);
     const obj = {
       difficulty: 'hard',
-      // optional: {}
     }
     if (learned.find(el => el.id === id || el._id === id)) {
       dispatch(deleteLearnedWord(id))
@@ -77,7 +72,7 @@ export const Word = (word: IWord) => {
     } else {
       dispatch(setHardWord(id, obj))
     }
-    dispatch(initializeAggregatedWords(group, page))
+    if (user) dispatch(initializeAggregatedWords(group, page))
   }
 
   const setColor = () => {

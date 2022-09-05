@@ -42,9 +42,9 @@ const textbookSlice = createSlice({
   },
 })
 
-export const initializeWords = (page: string, group: string) => {
+export const initializeWords = (group: string, page: string) => {
   return async (dispatch: Dispatch) => {
-    wordsService.getWords(page, group).then((response) => {
+    wordsService.getWords(group, page).then((response) => {
       dispatch(setWords(response))
     })
   }
@@ -103,7 +103,6 @@ export const deleteLearnedWord = (wordId: string) => {
     })
   }
 }
-// deleteUserWord
 
 export const updateHardWord = (wordId: string, data: any) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
