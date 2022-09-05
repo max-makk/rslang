@@ -14,7 +14,7 @@ const config = () => {
 const getAggregatedWords = (group: string, page: string) => {
   const id = tokenService.getUserId()
   const request = axios.get(`${baseUrl}/users/${id}/aggregatedWords?wordsPerPage=20&group=${group}&page=${page}`, config())
-  return request.then((response) => response.data)
+  return request.then((response) => response.data[0].paginatedResults)
 }
 
 const getHardWords = async () => {
