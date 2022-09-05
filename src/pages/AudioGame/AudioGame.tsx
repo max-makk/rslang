@@ -29,6 +29,9 @@ enum englishLevel {
 
 const successColor = 'green';
 const failColor = 'red';
+const baseUrl = 'http://localhost:3001';
+
+export interface AudioGameProps {}
 
 export const AudioGame = () => {
   const dispatch = useAppDispatch();
@@ -41,27 +44,41 @@ export const AudioGame = () => {
   const unLearnedWorIds: Set<string> = new Set(
     useAppSelector((state) => state.audiogame.unlearnedIds)
   );
-  const baseUrl = 'http://localhost:3001';
 
   const [wordIndex, setWordIndex] = useState(0);
   const [isAnswerGiven, setIsAnswerGiven] = useState(false);
   const word = words.length ? words[wordIndex] : undefined;
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const group = parseInt(queryParams.get('group') ?? '-1');
+  const page = parseInt(queryParams.get('page') ?? '-1');
+
   const playAudio = () => {
     if (word) {
       const audioTrack = new Audio(`${baseUrl}/${word?.audio}`);
-      audioTrack.play();
+      Promise.all([audioTrack.play()]);
     }
   };
 
   useEffect(() => {
+    dispatch(setGroup(group));
+    dispatch(setPage(page));
+
+    if (group >= 0 && page >= 0) {
+      srv.getWords(group, page).then((words) => {
+        dispatch(setWords(shuffle(words)));
+      });
+    }
     return () => {
       dispatch(setWords([]));
       dispatch(resetsetUnlearnedtWordIds([]));
     };
-  }, [dispatch]);
+  }, [dispatch, group, page]);
 
   useEffect(() => {
-    playAudio();
+    if (word?.audio) {
+      playAudio();
+    }
   }, [word?.audio]);
 
   const translates = useMemo(

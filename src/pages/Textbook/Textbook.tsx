@@ -118,7 +118,7 @@ export const Textbook = () => {
             </Modal>}
           </div>}
           <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_call}`}>
-            <Link to='/audiogame' className={style.textbook_game_link}>Аудиовызов</Link>
+            <Link to={`/audiogame?group=${group}&page=${page}`} className={style.textbook_game_link}>Аудиовызов</Link>
           </button>
           <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`}
                   onClick={() => handleSprintClick()}>
