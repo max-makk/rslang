@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import {
   initializeAggregatedWords,
   initializeHardWords,
-  // initializeLearnedWords,
+  initializeLearnedWords,
   initializeWords,
   setPage,
   setTextbookMode,
@@ -15,7 +15,7 @@ import { Word } from '../../components/Word/Word';
 import { LevelList } from '../../components/LevelList/LevelList';
 import { PageList } from '../../components/PageList/PageList';
 import { Link } from 'react-router-dom';
-// import { setTextbook } from '../../state/reducers/sprint';
+import { setTextbook } from '../../state/reducers/sprint';
 import { Footer } from '../../components/Footer/Footer';
 
 export const Textbook = () => {
@@ -62,7 +62,7 @@ export const Textbook = () => {
     if (user) {
       mode === 'words' ? setDifficultWords(false) : setDifficultWords(true);
       dispatch(initializeHardWords());
-      //dispatch(initializeLearnedWords());
+      dispatch(initializeLearnedWords());
       dispatch(initializeAggregatedWords(group, page));
     } else {
       dispatch(initializeWords(group, page));
@@ -83,7 +83,7 @@ export const Textbook = () => {
   };
 
   const handleSprintClick = () => {
-    // dispatch(setTextbook(true));
+    dispatch(setTextbook(true));
   };
 
   return (
