@@ -14,12 +14,8 @@ export const Timer = () => {
     dispatch(setResults(arr))
     dispatch(displayResults(true))
     if(user) {
-      if(useTextbook) {
-        // dispatch(sendTBResults(arr))
-        dispatch(sendResults(arr))
-      } {
-        dispatch(sendResults(arr))
-      }
+      dispatch(sendResults(arr))
+      return
     }
   }
 

@@ -1,7 +1,7 @@
 import axios from "axios"
 import tokenService from './user'
 
-const baseUrl = 'http://localhost:3001'
+const baseUrl = 'https://learnwords-backend.herokuapp.com'
 
 interface NewUser  {
   name: string
