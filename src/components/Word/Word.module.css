@@ -1,0 +1,131 @@
+.word {
+  border: 2px solid var(--black);
+  display: flex;
+  font-size: 18px;
+  padding: 1.5em;
+  gap: 1.5em;
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
+  border-radius: 3em;
+  align-items: flex-start;
+  width: 80%;
+  min-height:auto;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.headings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.level1 {
+  color: var(--level1);
+}
+
+.level2 {
+  color: var(--level2);
+}
+
+.level3 {
+  color: var(--level3);
+}
+
+.level4 {
+  color: var(--level4);
+}
+
+.level5 {
+  color: var(--level5);
+}
+
+.level6 {
+  color: var(--level6);
+}
+
+.audio_button {
+  border-radius: 2em;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  height: 2em;
+}
+
+.heading {
+  font-size: 24px;
+}
+
+.example i {
+  font-style: italic;
+}
+
+.example b {
+  font-weight: 600;
+}
+
+.translate_sentences {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.translate_example {
+  color: slategray;
+}
+
+.image {
+  width: 20em;
+  height: 14em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 2em;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-self: center;
+  margin-left: auto;
+}
+
+.learned {
+  border: 2px solid var(--learned);
+}
+
+.learned:hover {
+  background: var(--learned);
+}
+
+.difficult {
+  border: 2px solid var(--hard);
+}
+
+.difficult:hover {
+  background: var(--hard);
+}
+
+@media (max-width: 1024px) {
+  .word {
+    align-items: center;
+    flex-direction: column;
+    font-size: 16px;
+    width: 95%;
+  }
+
+  .image {
+    width: 100%;
+  }
+
+  .buttons {
+    flex-direction: row;
+    margin: 0;
+    gap: 1em;
+    align-self: center;
+  }
+}

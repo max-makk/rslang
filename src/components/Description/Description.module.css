@@ -1,0 +1,22 @@
+.description{
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  max-width: 30em;
+  padding-top: 0.5em;
+  padding-left: 5em;
+}
+
+@media (max-width: 768px){
+  .description{
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 558px){
+  .description{
+    font-size: 0.5rem;
+  }
+}

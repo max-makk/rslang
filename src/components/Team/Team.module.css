@@ -1,0 +1,77 @@
+.team_wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5em;
+ }
+ 
+ .team_string{
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 1em;
+   align-items: center;
+ }
+ 
+ .team_ava {
+   width: 5em;
+   height: 5em;
+   border: var(--black) solid 2px;
+   border-radius: 3em;
+   background-repeat: no-repeat;
+   background-size: contain;
+   box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+ }
+ 
+ .team_ava a{
+   width: 5em;
+   height: 5em;
+   color: transparent;
+   text-decoration: none;
+ }
+ 
+ .team_ava1{
+   background-image: url('./1.jpg');
+ }
+ 
+ .team_ava2{
+   background-image: url('./2.jpg');
+ }
+ 
+ .team_ava3{
+   background-image: url('./3.jpg');
+ }
+ 
+ .team_text{
+   max-width: 25em;
+   box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+   border: var(--black) solid 2px;
+   border-radius: 5em;
+   margin-left: 1em;
+   padding: 0.8em 1.5em;
+   font-size: 0.8rem;
+   line-height: 1rem;
+   background-color: rgb(235, 240, 247);
+ }
+ .team_text a{
+text-decoration: none;
+color: var(--black);
+font-weight: 600;
+ }
+ 
+ @media (max-width: 558px){
+  .team_ava {
+    width: 3em;
+    height: 3em;
+  }
+
+  .team_ava a{
+    width: 3em;
+    height: 3em;
+  }
+
+  .team_text{
+   /*  width: 20em; */
+    font-size: 0.6rem;
+   line-height: 0.8rem;
+  }
+}
