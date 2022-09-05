@@ -1,6 +1,7 @@
 import { Form } from '../../components/Form/Form';
 import { Team } from '../../components/Team/Team';
 import { Description } from '../../components/Description/Description';
+import { Footer } from '../../components/Footer/Footer';
 import style from './Home.module.css';
 
 export const Home = () => {
@@ -9,5 +10,6 @@ export const Home = () => {
     <Description/>
     </div>
     <Team/>
+    <Footer/>
   </>;
 }
