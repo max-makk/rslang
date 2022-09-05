@@ -119,8 +119,9 @@ export const setUserTextbookGame = () => {
     const group = textbook.group
     const page = textbook.page
     const arr = await getWordsForUserTBGame(group, page)
-    dispatch(initWords(arr))
-    const deck = createSprintDeck(arr)
+    const filtered = arr.filter(el => el.userWord.optional.learned !== true)
+    dispatch(initWords(filtered))
+    const deck = createSprintDeck(filtered)
     dispatch(setDeck(deck))
   }
 }
@@ -135,9 +136,9 @@ export const sendResults = (arr: any) => {
         } 
       }
       if(el.userWord) {
-        usersWords.updateUserWord(el._id || el.id, obj)
+        usersWords.updateUserWord(el.id || el._id, obj)
       } else {
-        usersWords.createUserWord(el._id || el.id, obj)
+        usersWords.createUserWord(el.id || el._id, obj)
       }
     })
     arr[1].forEach((el: any) => {
@@ -148,9 +149,9 @@ export const sendResults = (arr: any) => {
         } 
       }
       if(el.userWord) {
-        usersWords.updateUserWord(el._id || el.id, {...obj, difficulty: el.userWord.difficulty})
+        usersWords.updateUserWord(el.id || el._id, {...obj, difficulty: el.userWord.difficulty})
       } else {
-        usersWords.createUserWord(el._id || el.id, obj)
+        usersWords.createUserWord(el.id || el._id, obj)
       }
     })
 
