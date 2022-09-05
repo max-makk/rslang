@@ -54,6 +54,13 @@ export const AudioGame = () => {
   };
 
   useEffect(() => {
+    return () => {
+      dispatch(setWords([]));
+      dispatch(resetsetUnlearnedtWordIds([]));
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
     playAudio();
   }, [word?.audio]);
 
@@ -145,20 +152,25 @@ export const AudioGame = () => {
 
   return (
     <div className={style.audiogame_wrapper}>
-      Выберите уровень:
-      <div className={style.audiogame_level_wrapper}>
-        {Object.keys(englishLevel)
-          .filter((value) => isNaN(Number(value)) === true)
-          .map((level) => (
-            <button
-              className={style.audiogame_level}
-              data-group={Object.values(englishLevel).indexOf(level)}
-              onClick={difficultySelectionHandler}
-            >
-              {level}
-            </button>
-          ))}
-      </div>
+      {!words?.length && (
+        <>
+          Выберите уровень:
+          <div className={style.audiogame_level_wrapper}>
+            {Object.keys(englishLevel)
+              .filter((value) => isNaN(Number(value)) === true)
+              .map((level) => (
+                <button
+                  className={style.audiogame_level}
+                  key={level}
+                  data-group={Object.values(englishLevel).indexOf(level)}
+                  onClick={difficultySelectionHandler}
+                >
+                  {level}
+                </button>
+              ))}
+          </div>
+        </>
+      )}
       {!!words?.length &&
         (wordIndex >= words.length ? (
           <Statistic
@@ -220,6 +232,7 @@ export const AudioGame = () => {
             </div>
             <button
               className={style.audiogame_gamewindow_next_btn}
+              style={{ padding: isAnswerGiven ? 0 : '0.7em' }}
               onClick={nextItemHandle}
             >
               {isAnswerGiven ? <ArrowRightAltIcon /> : 'не знаю'}
