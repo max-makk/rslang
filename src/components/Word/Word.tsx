@@ -17,7 +17,7 @@ export const Word = (word: IWord) => {
   const [backgroundColor] = useState(`var(--level${word.group + 1})`);
   const [colorLearned, setColorLearned] = useState(false);
   const [colorDifficult, setColorDifficult] = useState(false);
-  const baseUrl = 'http://localhost:3001'
+  const baseUrl = 'https://learnwords-backend.herokuapp.com'
   const { learned, difficult }: { learned: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
   const group = useAppSelector(state => state.textbook.group)
   const page = useAppSelector(state => state.textbook.page);
