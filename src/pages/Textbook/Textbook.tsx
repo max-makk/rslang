@@ -1,20 +1,20 @@
 import style from './Textbook.module.css'
-import {useEffect, useState} from 'react';
-import {Modal} from '../../components/Modal/Modal';
-import {useAppDispatch, useAppSelector} from '../../state/hooks';
+import { useEffect, useState } from 'react';
+import { Modal } from '../../components/Modal/Modal';
+import { useAppDispatch, useAppSelector} from '../../state/hooks';
 import {
   initializeAggregatedWords,
-  initializeHardWords,
+  initializeHardWords, initializeLearnedWords,
   initializeWords,
   setPage, setTextbookMode
 } from '../../state/reducers/textbook';
-import {IWord} from '../../types/types';
-import {Word} from '../../components/Word/Word';
-import {LevelList} from '../../components/LevelList/LevelList';
-import {PageList} from '../../components/PageList/PageList';
-import {Link} from "react-router-dom";
+import { IWord } from '../../types/types';
+import { Word } from '../../components/Word/Word';
+import {LevelList } from '../../components/LevelList/LevelList';
+import { PageList } from '../../components/PageList/PageList';
+import { Link } from "react-router-dom";
 // import pageService from "./utils";
-import {setTextbook} from "../../state/reducers/sprint";
+import {setTextbook} from '../../state/reducers/sprint';
 
 export const Textbook = () => {
 
@@ -23,7 +23,6 @@ export const Textbook = () => {
   const group = useAppSelector(state => state.textbook.group)
   const page = useAppSelector(state => state.textbook.page);
   const {words, difficult}: { words: IWord[], difficult: IWord[] } = useAppSelector(state => state.textbook)
-  // console.log(difficult)
   const [modalLevel, setModalLevel] = useState(false);
   const [modalPage, setModalPage] = useState(false);
   const [isRightDisabled, setRightDisabled] = useState(false);
@@ -31,10 +30,8 @@ export const Textbook = () => {
   const pageNumber = parseInt(page);
   const [backgroundColor, setBackgroundColor] = useState(`var(--level${+group + 1})`);
   const [difficultWords, setDifficultWords] = useState(false);
-
   const mode = useAppSelector(state => state.textbook.mode);
 
-  // console.log(words)
   const disableUnableClicks = () => {
     if (pageNumber === 29) {
       setRightDisabled(true)
@@ -48,7 +45,7 @@ export const Textbook = () => {
       setRightDisabled(false)
     }
   }
-
+  // console.log(difficultWords)
   const diff = () => {
     setDifficultWords(current => !current)
     if (difficultWords) {
@@ -60,16 +57,16 @@ export const Textbook = () => {
 
   useEffect(() => {
     if (user) {
+      mode === 'words' ? setDifficultWords(false) : setDifficultWords(true);
       if (difficultWords) {
         dispatch(initializeHardWords())
       } else {
-        dispatch(initializeWords(group, page))
+        dispatch(initializeAggregatedWords(group, page))
       }
-      // dispatch(initializeAggregatedWords(group, page))
-      // dispatch(initializeHardWords())
     } else {
       dispatch(initializeWords(group, page))
     }
+
     // dispatch(setPage(pageService.getPage()));
     setModalLevel(false)
     setModalPage(false)
@@ -89,7 +86,7 @@ export const Textbook = () => {
   }
 
   const handleSprintClick = () => {
-  dispatch(setTextbook(true))
+    dispatch(setTextbook(true))
   }
 
   return (
@@ -109,7 +106,7 @@ export const Textbook = () => {
               <PageList/>
             </Modal>}
           </div>}
-          <div className={style.textbook_choose}>
+          {mode === 'words' && <div className={style.textbook_choose}>
             <button className={`${style.textbook_button} ${style.textbook_level}`}
                     onClick={() => setModalLevel(true)}
                     style={{backgroundColor}}
@@ -119,11 +116,12 @@ export const Textbook = () => {
             {modalLevel && <Modal open={modalLevel} onClose={() => setModalLevel(false)}>
               <LevelList/>
             </Modal>}
-          </div>
+          </div>}
           <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_call}`}>
             <Link to='/audiogame' className={style.textbook_game_link}>Аудиовызов</Link>
           </button>
-          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`} onClick={() =>  handleSprintClick()}>
+          <button className={`${style.textbook_button} ${style.textbook_game} ${style.textbook_sprint}`}
+                  onClick={() => handleSprintClick()}>
             <Link to='/sprint' className={style.textbook_game_link}>Спринт</Link>
           </button>
           {user &&
@@ -136,22 +134,25 @@ export const Textbook = () => {
         {difficult.length === 0 && mode === 'hard' && <div style={{textAlign: "center"}}>Нет сложных слов</div>}
         {mode === 'hard' && <div className={`${style.words} ${style.hardWords}`}>
           {difficult.map((word) =>
-              <Word key={word._id} id={word._id as string} group={word.group} page={word.page} word={word.word} image={word.image}
+              <Word key={word._id || word.id} id={word._id || word.id} group={word.group} page={word.page}
+                    word={word.word} image={word.image}
                     audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample}
                     textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription}
                     wordTranslate={word.wordTranslate} textMeaningTranslate={word.textMeaningTranslate}
                     textExampleTranslate={word.textExampleTranslate}
-                    diff={word.userWord.difficulty}
+                    userWord={word.userWord}
               />
           )}
         </div>}
         {mode === 'words' && <div className={style.words}>
           {words.map((word) =>
-              <Word key={word.id} id={word.id} group={word.group} page={word.page} word={word.word} image={word.image}
+              <Word key={word._id || word.id} id={word._id || word.id} group={word.group} page={word.page}
+                    word={word.word} image={word.image}
                     audio={word.audio} audioMeaning={word.audioMeaning} audioExample={word.audioExample}
                     textMeaning={word.textMeaning} textExample={word.textExample} transcription={word.transcription}
                     wordTranslate={word.wordTranslate} textMeaningTranslate={word.textMeaningTranslate}
                     textExampleTranslate={word.textExampleTranslate}
+                    userWord={word.userWord}
               />
           )}
         </div>}

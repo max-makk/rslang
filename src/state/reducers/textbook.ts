@@ -1,9 +1,9 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {Dispatch} from 'redux'
+import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch } from 'redux'
 import aggregatedService from '../../services/users-aggregated-word'
 import wordsService from '../../services/words'
-import {RootState} from "../store";
-import usersWords from "../../services/users-words";
+import { RootState } from '../store';
+import usersWords from '../../services/users-words';
 
 const initialState = {
   words: [],
@@ -34,17 +34,11 @@ const textbookSlice = createSlice({
       state.mode = payload
     },
     setDifficultWord(state, {payload}) {
-      // @ts-ignore
-      state.difficult = state.difficult.map((x: any) => {
-        if (x._id === payload.wordId) {
-          console.log(x)
-          console.log('x')
-        }
-      })
-    }
-    // setLearnedWords(state, { payload }) {
-    //   state.learned = payload
-    // },
+      state.difficult = state.difficult.map(d => d)
+    },
+    setLearnedWords(state, {payload}) {
+      state.learned = payload
+    },
   },
 })
 
@@ -59,8 +53,6 @@ export const initializeWords = (page: string, group: string) => {
 export const initializeAggregatedWords = (group: string, page: string) => {
   return async (dispatch: Dispatch) => {
     aggregatedService.getAggregatedWords(group, page).then((response) => {
-      dispatch(setPage(page))
-      dispatch(setPage(group))
       dispatch(setWords(response[0].paginatedResults))
     })
   }
@@ -74,14 +66,44 @@ export const initializeHardWords = () => {
   }
 }
 
+
+export const initializeLearnedWords = () => {
+  return async (dispatch: Dispatch) => {
+    aggregatedService.getLearnedWords().then((response) => {
+      dispatch(setLearnedWords(response))
+    })
+  }
+}
+export const setLearnedWord = (wordId: string, data: any) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    await usersWords.createUserWord(wordId, data).then(res => {
+      dispatch(setLearnedWords(res))
+    })
+  }
+}
+
+
 export const setHardWord = (wordId: string, data: any) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     await usersWords.createUserWord(wordId, data).then(res => {
       dispatch(setDifficultWord(res))
-      console.log(res, 'put')
     })
   }
 }
+export const deleteHardWord = (wordId: string) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    await usersWords.deleteUserWord(wordId).then(res => {
+    })
+  }
+}
+
+export const deleteLearnedWord = (wordId: string) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    await usersWords.deleteUserWord(wordId).then(res => {
+    })
+  }
+}
+// deleteUserWord
 
 export const updateHardWord = (wordId: string, data: any) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
@@ -91,19 +113,15 @@ export const updateHardWord = (wordId: string, data: any) => {
     })
   }
 }
-// export const setHardWord = (wordId: string, data: any) => {
-// return async (dispath: Dispatch, getState: () => RootState) => {
-//   await usersWords.updateUserWord(wordId, data).then(res => {
-//     console.log(res, 'put')
-//   })
-//       .catch(err => {
-//     usersWords.createUserWord(wordId, data).then(res => {
-//       console.log(res, 'create')
-//     })
-//   })
-// }
-// }
 
 
-export const {setGroup, setPage, setWords, setDifficultWords, setTextbookMode, setDifficultWord} = textbookSlice.actions
+export const {
+  setGroup,
+  setPage,
+  setWords,
+  setDifficultWords,
+  setTextbookMode,
+  setDifficultWord,
+  setLearnedWords
+} = textbookSlice.actions
 export default textbookSlice.reducer
