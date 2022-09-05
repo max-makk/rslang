@@ -54,10 +54,11 @@ export const Game = () => {
     dispatch(displayResults(true))
     if(user) {
       if(useTextbook) {
-        // dispatch(sendTBResults(arr))
         dispatch(sendResults(arr))
+        return
       } {
         dispatch(sendResults(arr))
+        return
       }
     }
   }
