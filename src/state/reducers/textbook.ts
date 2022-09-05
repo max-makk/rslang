@@ -53,7 +53,7 @@ export const initializeWords = (page: string, group: string) => {
 export const initializeAggregatedWords = (group: string, page: string) => {
   return async (dispatch: Dispatch) => {
     aggregatedService.getAggregatedWords(group, page).then((response) => {
-      dispatch(setWords(response[0].paginatedResults))
+      dispatch(setWords(response))
     })
   }
 }
